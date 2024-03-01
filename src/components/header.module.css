@@ -1,0 +1,78 @@
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F2F6FA;
+    border-bottom: solid 1px #E6F1FC;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.logo {
+    height: 24px;
+    margin-left: 32px;
+}
+
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 15px;
+}
+
+.navLink {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+.navLink:hover {
+    color: rgb(0, 115, 230);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 10px;
+    transition: all .3s ease;
+}
+
+.navLinkInactive {
+    color: rgb(23, 32, 41);
+}
+
+.navLinkActive {
+    color: rgb(0, 115, 230);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 10px;
+}
+
+.cartButton {
+    width: 117px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-right: 32px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.cartButton:hover {
+    cursor: pointer;
+}
+
+.img {
+    width: 17px;
+    height: 17px;
+}
+
+.text {
+    color: rgb(23, 32, 41);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 0px;
+    margin: 0;
+}

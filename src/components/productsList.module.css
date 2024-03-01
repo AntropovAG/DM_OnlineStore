@@ -1,0 +1,18 @@
+.container {
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    grid-template-columns: repeat(5, min-content);
+    gap: 24px;
+    background-color: #F2F6FA;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.text {
+    width: 300px;
+    text-align: center;
+    color: #0073E6;
+    font-size: 20px;
+    font-weight: 700;
+}
