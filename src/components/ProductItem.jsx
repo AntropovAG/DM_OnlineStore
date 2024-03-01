@@ -9,7 +9,7 @@ export default function ProductItem(item) {
 
     return (
         <Link to={id} className={styles.container}>
-            <img className={styles.img} src={picture} alt="Фото продукта" />
+            <img loading='lazy' className={styles.img} src={picture} alt="Фото продукта" />
             <div className={styles.infoContainer}>
                 <h2 className={styles.name}>{title}</h2>
                 <ProductRaiting rating={rating}/>
