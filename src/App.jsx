@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import './App.css'
 import Layout from './components/Layout'
-import { fetchGoods } from './redux/goodsSlice'
+import { fetchGoods, setFirstLoading } from './redux/goodsSlice'
 
 function App() {
   const goodsPage = useSelector((state) => state.goods.goodsPage);
@@ -10,6 +10,9 @@ function App() {
   
 useEffect(() => {
   dispatch(fetchGoods(goodsPage))
+  .finally(() => {
+    dispatch(setFirstLoading(true));
+  });
 }, [])
 
 

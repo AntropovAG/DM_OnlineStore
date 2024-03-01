@@ -1,8 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
 import Header from './Header'
+import ProductInfo from './ProductInfo'
 import ProductsList from './ProductsList'
-
 import styles from './layout.module.css'
+
 
 function Layout() {
 
@@ -11,7 +12,8 @@ function Layout() {
         <Header />
         <Routes>
           <Route path='/' element={<ProductsList />}></Route>
-          <Route path='/orders' element={<>Здесь Будут ваши заказы</>}></Route>  
+          <Route path='/orders' element={<>Здесь будут ваши заказы</>}></Route>
+          <Route path='/:id' element={<ProductInfo />}></Route>
       </Routes>
       </div>
     )

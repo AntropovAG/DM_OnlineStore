@@ -14,11 +14,15 @@ const goodsSlice = createSlice({
         goodsPage: 1,
         isLoading: false,
         allGoodsLoaded: false,
+        firstLoading: false
     },
     reducers: {
         addPage: (state) => {
             state.goodsPage += 1;
         },
+        setFirstLoading: (state, action) => {
+            state.firstLoading = action.payload;
+        }
     },
     extraReducers:
         (builder) => {
@@ -35,6 +39,6 @@ const goodsSlice = createSlice({
         },
 })
 
-export const { setGoods, addPage } = goodsSlice.actions;
+export const { setGoods, addPage, setFirstLoading } = goodsSlice.actions;
 
 export default goodsSlice.reducer;
