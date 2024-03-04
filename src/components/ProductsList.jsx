@@ -11,6 +11,7 @@ export default function ProductsList() {
   const isLoading = useSelector((state) => state.goods.isLoading);
   const allGoodsLoaded = useSelector((state) => state.goods.allGoodsLoaded);
   const firstLoaded = useSelector((state) => state.goods.firstLoading);
+  const errorMessage = useSelector((state) => state.goods.errorMessage);
   const [isFetching, setIsFetching] = useState(false);
   const dispatch = useDispatch();
 
@@ -39,11 +40,18 @@ export default function ProductsList() {
     }
   }, [allGoodsLoaded, handleScroll]);
 
+  useEffect(() => {
+    sessionStorage.setItem("goods", JSON.stringify(data));
+    console.log(JSON.parse(sessionStorage.getItem("goods")))
+  }, [data]);
+
   return (
     <>
       <div className={styles.container}>
         {firstLoaded && data.length === 0 ? (
-          <p className={styles.text}>Сожалеем, но товаров не найдено</p>
+        <>
+          {errorMessage ? <p className={styles.text}>{errorMessage}</p> : <p className={styles.text}>Сожалеем, но товаров не найдено</p>}
+        </>
         ) : (
           data.map((item) => <ProductItem key={item.id} {...item} />)
         )}

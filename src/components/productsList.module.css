@@ -15,6 +15,7 @@
     color: #0073E6;
     font-size: 20px;
     font-weight: 700;
+    grid-column: span 5;
 }
 
 
