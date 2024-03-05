@@ -5,7 +5,7 @@ export const fetchGoods = createAsyncThunk(
     async (page, { rejectWithValue, dispatch }) => {
         try {
             const response = await fetch(
-                `https://skillfactory-task.detmir.team/products?page=${page}&limit=20&sort=title%3Aasc`
+                `https://skillfactory-task.detmir.team/products?page=${page}&limit=5&sort=title%3Aasc`
             );
             if(!response.ok) {
                 throw new Error("Ошибка сервера, пожалуйста попробуйте позднее.")
@@ -63,7 +63,7 @@ const goodsSlice = createSlice({
                 state.goods = state.goods.concat(action.payload.data);
                 if (
                     action.payload.data.length === 0 ||
-                    action.payload.data.length < 20
+                    action.payload.data.length < 5
                 ) {
                     state.allGoodsLoaded = true;
                 }

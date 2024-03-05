@@ -1,9 +1,10 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ProductItem from "./ProductItem";
 import Loader from "./Loader";
 import styles from "./productsList.module.css";
 import { fetchGoods, setFirstLoading } from "../redux/goodsSlice";
+import { InView } from "react-intersection-observer";
 
 export default function ProductsList() {
   const data = useSelector((state) => state.goods.goods);
@@ -12,38 +13,25 @@ export default function ProductsList() {
   const allGoodsLoaded = useSelector((state) => state.goods.allGoodsLoaded);
   const firstLoaded = useSelector((state) => state.goods.firstLoading);
   const errorMessage = useSelector((state) => state.goods.errorMessage);
-  const [isFetching, setIsFetching] = useState(false);
   const dispatch = useDispatch();
+  const [isInView, setIsInView] = useState(false);
 
-  const handleScroll = useCallback(() => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight &&
-      !isFetching
-    ) {
+  useEffect(() => {
+    dispatch(fetchGoods(goodsPage))
+    .finally(() => {
+      dispatch(setFirstLoading(true));
+    });
+  }, [])
+
+  useEffect(() => {
+    if (isInView && !isLoading && !allGoodsLoaded) {
       if (firstLoaded === true) {
         dispatch(setFirstLoading(false));
       }
-      setIsFetching(true);
       dispatch(fetchGoods(goodsPage)).finally(() => {
-        setIsFetching(false);
       });
     }
-  }, [dispatch, goodsPage, isFetching, firstLoaded]);
-
-  useEffect(() => {
-    if (!allGoodsLoaded) {
-      window.addEventListener("scroll", handleScroll);
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, [allGoodsLoaded, handleScroll]);
-
-  useEffect(() => {
-    sessionStorage.setItem("goods", JSON.stringify(data));
-    console.log(JSON.parse(sessionStorage.getItem("goods")))
-  }, [data]);
+  }, [isInView, isLoading, allGoodsLoaded, dispatch, goodsPage, firstLoaded]);
 
   return (
     <>
@@ -54,8 +42,9 @@ export default function ProductsList() {
         </>
         ) : (
           data.map((item) => <ProductItem key={item.id} {...item} />)
-        )}
+        ) }      
       </div>
+      <InView as="div" onChange={(inView) => {setIsInView(inView)}}  threshold={1}></InView>
       {isLoading && <Loader />}
     </>
   );
