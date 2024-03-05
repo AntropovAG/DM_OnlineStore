@@ -20,6 +20,26 @@ export const fetchGoods = createAsyncThunk(
     }
 );
 
+export const fetchCashedGoods = createAsyncThunk(
+    "goods/fetchCashedGoods",
+    async ({limit, page}, { rejectWithValue, dispatch }) => {
+        try {
+            const response = await fetch(
+                `https://skillfactory-task.detmir.team/products?page=1&limit=${limit}&sort=title%3Aasc`
+            );
+            if(!response.ok) {
+                throw new Error("Ошибка сервера, пожалуйста попробуйте позднее.")
+            }
+
+            const data = await response.json();
+            dispatch(setPage(page));
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 export const fetchGoodByID = createAsyncThunk(
     "goods/fetchGoodByID",
     async (id) => {
@@ -47,6 +67,9 @@ const goodsSlice = createSlice({
     reducers: {
         addPage: (state) => {
             state.goodsPage += 1;
+        },
+        setPage: (state, action) => {
+            state.goodsPage = action.payload;
         },
         setGoodWithID: (state, action) => {
             state.goodWithId = action.payload;
@@ -77,6 +100,26 @@ const goodsSlice = createSlice({
                 state.errorMessage = action.payload;
                 console.log(state.errorMessage);
             })
+            .addCase(fetchCashedGoods.fulfilled, (state, action) => {
+                state.errorMessage = null;
+                state.isLoading = false;
+                state.goods = state.goods.concat(action.payload.data);
+                if (
+                    action.payload.data.length === 0 ||
+                    action.payload.data.length < 5
+                ) {
+                    state.allGoodsLoaded = true;
+                }
+            })
+            .addCase(fetchCashedGoods.pending, (state) => {
+                state.errorMessage = null;
+                state.isLoading = true;
+            })
+            .addCase(fetchCashedGoods.rejected, (state, action) => {
+                state.isLoading = false;
+                state.errorMessage = action.payload;
+                console.log(state.errorMessage);
+            })
             .addCase(fetchGoodByID.pending, (state) => {
                 state.goodWithId = {};
             })
@@ -86,6 +129,6 @@ const goodsSlice = createSlice({
     },
 });
 
-export const { setGoods, addPage, setFirstLoading } = goodsSlice.actions;
+export const { setGoods, addPage, setPage, setFirstLoading } = goodsSlice.actions;
 
 export default goodsSlice.reducer;

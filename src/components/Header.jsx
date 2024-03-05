@@ -1,7 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styles from "./header.module.css";
 
 export default function Header() {
+    let number = JSON.parse(sessionStorage.getItem("cashedData"))?.length;
+    const location = useLocation();
+
     return (
         <div className={styles.container}>
             <img
@@ -11,9 +14,8 @@ export default function Header() {
             />
             <nav className={styles.navContainer}>
                 <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                        isActive ? `${styles.navLink} ${styles.navLinkActive}` : `${styles.navLink} ${styles.navLinkInactive}`
+                    to={number?`/${number}`:"/0"}
+                    className={location.pathname.startsWith(`/${number}`) ? `${styles.navLink} ${styles.navLinkActive}` : `${styles.navLink} ${styles.navLinkInactive}`
                     }
                 >
                     Товары
