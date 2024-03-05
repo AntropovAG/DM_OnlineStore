@@ -1,3 +1,24 @@
+@import url(./utils/normalize.css);
+@import url(./fonts/fonts.css);
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Nunito", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d4d8db;
+  border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 115, 230, .8);
+  border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 115, 230, 1);
 }
