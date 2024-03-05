@@ -44,8 +44,9 @@ export default function ProductsList() {
           data.map((item) => <ProductItem key={item.id} {...item} />)
         ) }      
       </div>
-      <InView as="div" onChange={(inView) => {setIsInView(inView)}}  threshold={1}></InView>
+
       {isLoading && <Loader />}
+      <InView as="div" onChange={(inView) => {setIsInView(inView)}}  threshold={1}></InView>
     </>
   );
 }
