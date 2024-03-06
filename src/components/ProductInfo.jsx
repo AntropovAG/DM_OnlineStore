@@ -1,19 +1,35 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,  useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProductRaiting from "./ProductRaiting";
 import styles from "./productInfo.module.css";
+import { useEffect } from "react";
+import { fetchGoodByID } from "../redux/goodsSlice";
+import { useDispatch } from "react-redux";
+import Loader from "./Loader";
+import NotFound from "./NotFound";
 
 export default function ProductInfo() {
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const product = useSelector((state) => state.goods.goodWithId);
-
+  const isLoading = useSelector((state) => state.goods.isLoading);
+  const error = useSelector((state) => state.goods.errorMessage);
   const formattedPrice = new Intl.NumberFormat("ru-RU").format(product.price);
-  console.log(id, product);
+const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchGoodByID(id));
+    }
+  }, [])
+
 
   return (
-    <div className={styles.container}>
-      <Link className={styles.link} to={`/products/0`}>
+  <>
+  {isLoading && <Loader />}
+  {error ? <NotFound /> :
+      <div className={styles.container}>
+      <Link className={styles.link} onClick={() => navigate(-1)}>
         <img
           className={styles.linkImg}
           src="/images/arrow_left.png"
@@ -55,6 +71,8 @@ export default function ProductInfo() {
         <h3 className={styles.descriptionTitle}>Описание</h3>
         <div dangerouslySetInnerHTML={{ __html: product.description }} />
       </div>
-    </div>
+    </div>}
+  </>
+
   );
 }

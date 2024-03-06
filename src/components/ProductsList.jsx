@@ -25,17 +25,21 @@ export default function ProductsList() {
   useEffect(() => {
     const cashedData = JSON.parse(sessionStorage.getItem("cashedData"));
     const scrollPosition = sessionStorage.getItem("scrollPosition");
-    if (data.length === 0 && cashedData && scrollPosition) {
-      dispatch(
-        fetchCashedGoods({ limit: cashedData.length, page: cashedData.page })
-      ).finally(() => {
-        dispatch(setFirstLoading(true));
-        window.scrollTo(0, scrollPosition);
-      });
-    } else if (data.length === 0) {
-      dispatch(fetchGoods(goodsPage)).finally(() => {
-        dispatch(setFirstLoading(true));
-      });
+    if (data.length === 0) {
+      if (cashedData === null) {
+        dispatch(fetchGoods(goodsPage)).finally(() => {
+          dispatch(setFirstLoading(true));
+        });
+      } else {
+        dispatch(
+          fetchCashedGoods({ limit: cashedData.length, page: cashedData.page })
+        ).finally(() => {
+          dispatch(setFirstLoading(true));
+          window.scrollTo(0, scrollPosition);
+        });
+      }
+    } else {
+      window.scrollTo(0, scrollPosition);
     }
   }, []);
 
