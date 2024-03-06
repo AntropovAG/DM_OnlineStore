@@ -64,7 +64,7 @@ export default function ProductsList() {
   useEffect(() => {
     const updateUrl = () => {
       const loadedData = data.length;
-      navigate(`/${loadedData}`);
+      navigate(`/products/${loadedData}`);
       sessionStorage.setItem(
         "cashedData",
         JSON.stringify({ length: loadedData, page: goodsPage })
