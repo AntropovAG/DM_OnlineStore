@@ -20,17 +20,26 @@ export default function AddToCartButton() {
 
     return (
         <div>
-            {" "}
             {count === 0 ? (
-                <button className={styles.button} onClick={increment}>Оформить заказ</button>
+                <button className={styles.button} onClick={increment}>
+                    Добавить в корзину
+                </button>
             ) : (
                 <div className={styles.buttonsContainer}>
                     <div className={styles.countContainer}>
-                        <button className={styles.countButton} onClick={decrement}>
+                        <button
+                            className={styles.countButton}
+                            onClick={decrement}
+                            disabled={count === 0}
+                        >
                             -
                         </button>
                         <span className={styles.countText}>{count}</span>
-                        <button className={styles.countButton} onClick={increment}>
+                        <button
+                            className={styles.countButton}
+                            onClick={increment}
+                            disabled={count === 10}
+                        >
                             +
                         </button>
                     </div>

@@ -51,6 +51,12 @@
     background: #0073e650;
 }
 
+.countButton:disabled {
+    background-color: #e6f1fc;
+    color: #0073e680;
+    cursor: default; 
+}
+
 .countText {
     display: flex;
     width: 52px;
