@@ -6,7 +6,7 @@ export default function Loader() {
             <div className={styles.loaderContainer}>
                 <img
                     className={styles.loaderImg}
-                    src="images/logo.svg"
+                    src="/images/logo.svg"
                     alt="загрузчик"
                 ></img>
                 <p className={styles.loaderText}>Загрузка...</p>

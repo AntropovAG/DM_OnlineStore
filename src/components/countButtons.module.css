@@ -1,0 +1,65 @@
+.buttonsContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.countContainer {
+    display: flex;
+    align-items: center;
+}
+
+.countButton {
+    width: 52px;
+    height: 52px;
+    background-color: #e6f1fc;
+    color: #0073e6;
+    font-size: 30px;
+    font-weight: 900;
+    border: none;
+    padding: 0;
+}
+
+.countButton:first-of-type {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.countButton:last-of-type {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.countButton:hover {
+    cursor: pointer;
+    background: #0073e650;
+}
+
+.countButton:disabled {
+    background-color: #e6f1fc;
+    color: #0073e680;
+    cursor: default; 
+}
+
+.countText {
+    display: flex;
+    width: 52px;
+    height: 52px;
+    background-color: #e6f1fc;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 585px) {
+    .countButton {
+        width: 30px;
+        font-size: 24px;
+    }
+
+    .countText {
+        width: 30px;
+    }
+}

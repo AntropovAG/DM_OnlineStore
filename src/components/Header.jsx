@@ -1,4 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
+import Cart from "./Cart";
 import styles from "./header.module.css";
 
 export default function Header() {
@@ -9,13 +10,13 @@ export default function Header() {
         <div className={styles.container}>
             <img
                 className={styles.logo}
-                src="images/DM_header_logo.png"
+                src="/images/DM_header_logo.png"
                 alt="Логотип Синий куб"
             />
             <nav className={styles.navContainer}>
                 <NavLink
-                    to={number?`/${number}`:"/0"}
-                    className={location.pathname.startsWith(`/${number}`) ? `${styles.navLink} ${styles.navLinkActive}` : `${styles.navLink} ${styles.navLinkInactive}`
+                    to={number?`/products/${number}`:"/0"}
+                    className={location.pathname.startsWith(`/products`) || location.pathname.startsWith(`/product`) ? `${styles.navLink} ${styles.navLinkActive}` : `${styles.navLink} ${styles.navLinkInactive}`
                     }
                 >
                     Товары
@@ -29,11 +30,10 @@ export default function Header() {
                     Заказы
                 </NavLink>
             </nav>
-            <button className={styles.cartButton} type="button">
-                <img className={styles.img} src="images/cart.png" alt="Корзина" />
-                <p className={styles.text}>Корзина</p>
-                <span className={styles.text}>(0)</span>
-            </button>
+            <div className={styles.cartContainer}>
+                <Cart />
+            </div>
+
         </div>
     );
 }

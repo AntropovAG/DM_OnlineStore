@@ -42,14 +42,19 @@ export const fetchCashedGoods = createAsyncThunk(
 
 export const fetchGoodByID = createAsyncThunk(
     "goods/fetchGoodByID",
-    async (id) => {
-        console.log("starting to search for good with id: ", id);
-        const response = await fetch(
-            `https://skillfactory-task.detmir.team/products/${id}`
-        );
-        const data = await response.json();
-        console.log(data);
-        return data;
+    async (id, {rejectWithValue}) => {
+        try {
+            const response = await fetch(
+                `https://skillfactory-task.detmir.team/products/${id}`
+            );
+            if(!response.ok) {
+                throw new Error("Товар не найден.")
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
     }
 );
 
@@ -120,10 +125,18 @@ const goodsSlice = createSlice({
                 state.errorMessage = action.payload;
                 console.log(state.errorMessage);
             })
+            .addCase(fetchGoodByID.rejected, (state, action) => {
+                state.isLoading = false;
+                state.errorMessage = action.payload;
+            })
             .addCase(fetchGoodByID.pending, (state) => {
                 state.goodWithId = {};
+                state.errorMessage = null;
+                state.isLoading = true;
             })
             .addCase(fetchGoodByID.fulfilled, (state, action) => {
+                state.errorMessage = null;
+                state.isLoading = false;
                 state.goodWithId = action.payload;
             });
     },
