@@ -1,4 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
+import Cart from "./Cart";
 import styles from "./header.module.css";
 
 export default function Header() {
@@ -29,11 +30,10 @@ export default function Header() {
                     Заказы
                 </NavLink>
             </nav>
-            <button className={styles.cartButton} type="button">
-                <img className={styles.img} src="/images/cart.png" alt="Корзина" />
-                <p className={styles.text}>Корзина</p>
-                <span className={styles.text}>(0)</span>
-            </button>
+            <div className={styles.cartContainer}>
+                <Cart />
+            </div>
+
         </div>
     );
 }

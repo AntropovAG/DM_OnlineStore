@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Button from "./Button";
+import CountButtons from "./CountButtons";
 import styles from "./addToCartButton.module.css";
 
 export default function AddToCartButton() {
@@ -21,31 +23,11 @@ export default function AddToCartButton() {
     return (
         <div>
             {count === 0 ? (
-                <button className={styles.button} onClick={increment}>
-                    Добавить в корзину
-                </button>
+                <Button buttonName={"Добавить в корзину"} handleClick={increment}/>
             ) : (
                 <div className={styles.buttonsContainer}>
-                    <div className={styles.countContainer}>
-                        <button
-                            className={styles.countButton}
-                            onClick={decrement}
-                            disabled={count === 0}
-                        >
-                            -
-                        </button>
-                        <span className={styles.countText}>{count}</span>
-                        <button
-                            className={styles.countButton}
-                            onClick={increment}
-                            disabled={count === 10}
-                        >
-                            +
-                        </button>
-                    </div>
-                    <button className={styles.button} onClick={handleClick}>
-                        Оформить заказ
-                    </button>
+                    <CountButtons  decrement={decrement} increment={increment} count={count} />
+                    <Button buttonName={"Оформить заказ"} handleClick={handleClick}/>
                 </div>
             )}
         </div>
