@@ -3,9 +3,10 @@ import Cart from "./Cart";
 import styles from "./header.module.css";
 
 export default function Header() {
-    let number = JSON.parse(sessionStorage.getItem("cashedData"))?.length;
+    // let number = JSON.parse(sessionStorage.getItem("cashedData"))?.length;
     const location = useLocation();
 
+    
     return (
         <div className={styles.container}>
             <img
@@ -15,7 +16,7 @@ export default function Header() {
             />
             <nav className={styles.navContainer}>
                 <NavLink
-                    to={number?`/products/${number}`:"/0"}
+                    to={"/"}
                     className={location.pathname.startsWith(`/products`) || location.pathname.startsWith(`/product`) ? `${styles.navLink} ${styles.navLinkActive}` : `${styles.navLink} ${styles.navLinkInactive}`
                     }
                 >

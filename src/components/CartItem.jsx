@@ -1,24 +1,38 @@
 import styles from "./cartItem.module.css";
 import CountButtons from "./CountButtons";
-import { useState } from "react";
 
-export default function CartItem() {
-    const [count, setCount] = useState(0);
+import { formatPrice } from "../utils/supportFunctions";
+import { updateCartData, deleteItem } from "../redux/cartSlice";
+import { useDispatch } from "react-redux";
+
+export default function CartItem({item}) {
+
+    const {quantity} = item;
+    const {picture, title, price, id} = item.product;
+    const batchPrice = () => {
+        return quantity * price;
+    }
+    const dispatch = useDispatch();
 
     const increment = () => {
-        if (count === 10) return;
-        setCount((prev) => prev + 1);
+        if (quantity > 10) return;
+        let counting = quantity + 1;
+        dispatch(updateCartData({id, count: counting}));
     };
 
     const decrement = () => {
-        if (count === 0) return;
-        setCount((prev) => prev - 1);
+        if (quantity < 0) return;
+        let counting = quantity - 1;
+        dispatch(updateCartData({id, count: counting}));
     };
 
+    const deleteItemFromCart = () => {
+        dispatch(deleteItem({id}));
+    }
 
     const renderDeleteButton = () => {
-        return count === 0 && (
-            <button className={styles.deleteItemButton}>
+        return quantity === 0 && (
+            <button className={styles.deleteItemButton} onClick={deleteItemFromCart}>
                 <img className={styles.deleteItemButtonImg} src="/images/delete_icon.png" alt="delete icon" />
                 Удалить
             </button>
@@ -26,17 +40,17 @@ export default function CartItem() {
     };
 
     const renderPriceContainer = () => {
-        if (count === 0) return null;
+        if (quantity === 0) return null;
 
         return (
             <div className={styles.orderPriceContainer}>
-                {count > 1 ? (
+                {quantity > 1 ? (
                     <>
-                        <p className={styles.orderUnitPrice}>100 &#8381; за шт.</p>
-                        <p className={styles.orderBatchPrice}>200 &#8381;</p>
+                        <p className={styles.orderUnitPrice}>{formatPrice(price)} &#8381; за шт.</p>
+                        <p className={styles.orderBatchPrice}>{formatPrice(batchPrice())} &#8381;</p>
                     </>
                 ) : (
-                    <p className={styles.orderBatchPrice}>200 &#8381;</p>
+                    <p className={styles.orderBatchPrice}>{formatPrice(price)} &#8381;</p>
                 )}
             </div>
         );
@@ -44,10 +58,10 @@ export default function CartItem() {
 
     return (
         <div className={styles.orderItem}>
-            <img className={styles.orderImg} src="/images/test.jpg" alt="изображение товара" />
-            <p className={styles.orderTitle}>Название товара</p>
+            <img className={styles.orderImg} src={picture} alt="изображение товара" />
+            <p className={styles.orderTitle}>{title}</p>
             <div className={styles.buttonsContainer}>
-                    <CountButtons decrement={decrement} increment={increment} count={count} />
+                    <CountButtons decrement={decrement} increment={increment} count={quantity} />
             </div>
 {renderPriceContainer()}
 {renderDeleteButton()}

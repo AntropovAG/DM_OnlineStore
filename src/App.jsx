@@ -4,8 +4,16 @@ import ProductsList from './components/ProductsList'
 import ProductInfo from './components/ProductInfo'
 import NotFound from './components/NotFound'
 import './App.css'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchCart } from './redux/cartSlice'
 
 function App() {
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    dispatch(fetchCart())
+  }, []);
 
   return (
     <div className="container">

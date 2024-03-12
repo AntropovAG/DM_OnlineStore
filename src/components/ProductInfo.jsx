@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import Loader from "./Loader";
 import NotFound from "./NotFound";
 import AddToCartButton from "./AddToCartButton";
+import { formatPrice } from "../utils/supportFunctions";
 
 export default function ProductInfo() {
   const { id } = useParams();
@@ -17,7 +18,8 @@ export default function ProductInfo() {
   );
   const isLoading = useSelector((state) => state.goods.isLoading);
   const error = useSelector((state) => state.goods.errorMessage);
-  const formattedPrice = new Intl.NumberFormat("ru-RU").format(price);
+
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,8 +51,8 @@ export default function ProductInfo() {
                 <ProductRaiting rating={rating} />
               </div>
               <div>
-                <p className={styles.price}>{formattedPrice} &#8381;</p>
-                <AddToCartButton />
+                <p className={styles.price}>{formatPrice(price)} &#8381;</p>
+                <AddToCartButton id={id} />
               </div>
               <div>
                 <h3 className={styles.returnPolicyTitle}>

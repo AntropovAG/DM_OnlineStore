@@ -1,33 +1,48 @@
-import { useState } from "react";
 import Button from "./Button";
 import CountButtons from "./CountButtons";
 import styles from "./addToCartButton.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { updateCartData, deleteItem } from "../redux/cartSlice";
 
-export default function AddToCartButton() {
-    const [count, setCount] = useState(0);
+export default function AddToCartButton({ id }) {
+    const dispatch = useDispatch();
+    const data = useSelector((state) => state.cart.cartData.data);
+    const isInCart = data.some((item) => item.id === id);
+    console.log("is in cart? ", isInCart, "ID: ", id, "DATA: ", data)
+    const quantity = isInCart ? data.find((item) => item.id === id).quantity : 0;
+
 
     const increment = () => {
-        if (count === 10) return;
-        setCount((prev) => prev + 1);
+        if (quantity > 10) return;
+        let counting = quantity + 1;
+        dispatch(updateCartData({ id, count: counting }));
     };
 
     const decrement = () => {
-        if (count === 0) return;
-        setCount((prev) => prev - 1);
+        if (quantity < 0) return;
+        let counting = quantity - 1;
+        if (counting === 0) {
+            console.log("Удаление");
+            dispatch(deleteItem({ id }));
+        } else {
+            dispatch(updateCartData({ id, count: counting }));
+        }
+
     };
 
+
     const handleClick = () => {
-        console.log("Купить", count);
+        console.log("Купить");
     };
 
     return (
         <div>
-            {count === 0 ? (
-                <Button buttonName={"Добавить в корзину"} handleClick={increment}/>
+            {quantity === 0 ? (
+                <Button buttonName={"Добавить в корзину"} handleClick={increment} />
             ) : (
                 <div className={styles.buttonsContainer}>
-                    <CountButtons  decrement={decrement} increment={increment} count={count} />
-                    <Button buttonName={"Оформить заказ"} handleClick={handleClick}/>
+                    <CountButtons decrement={decrement} increment={increment} count={quantity} />
+                    <Button buttonName={"Оформить заказ"} handleClick={handleClick} />
                 </div>
             )}
         </div>

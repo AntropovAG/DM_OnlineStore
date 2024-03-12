@@ -82,6 +82,7 @@
 .orderPriceContainer {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 112px;
     min-height: 40px;
     align-items: flex-end;
