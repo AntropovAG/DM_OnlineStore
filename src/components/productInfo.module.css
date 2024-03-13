@@ -73,13 +73,42 @@
     overflow-wrap: break-word;
 }
 
-.price {
+.orderPriceContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 112px;
+    min-height: 48px;
+    align-items: flex-start;
+}
+
+.orderUnitPrice {
+    color: rgb(128, 128, 128);
+    font-family: Circe Rounded DM;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+}
+
+.orderBatchPrice {
     color: rgb(23, 32, 41);
     font-family: Circe Rounded DM;
     font-size: 28px;
     font-weight: 800;
     line-height: 32px;
     letter-spacing: 0px;
+}
+
+.errorMessage {
+    display: block;
+    min-height: 24px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    font-style: italic;
+    color: #ff0000;
+    text-align: center;
 }
 
 .returnPolicyTitle {

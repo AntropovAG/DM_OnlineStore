@@ -3,13 +3,15 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import ProductsList from './components/ProductsList'
 import ProductInfo from './components/ProductInfo'
 import NotFound from './components/NotFound'
+import Notification from './components/Notification'
 import './App.css'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchCart } from './redux/cartSlice'
 
 function App() {
   const dispatch = useDispatch()
+  const popupIsOpen = useSelector(state => state.cart.popupIsOpen);
   
   useEffect(() => {
     dispatch(fetchCart())
@@ -25,6 +27,7 @@ function App() {
         <Route path='*' element={<NotFound />}></Route>
         <Route path='/' element={<Navigate to="/products/:number" />}></Route>
     </Routes>
+    {popupIsOpen && <Notification />}
     </div>
   )
 }

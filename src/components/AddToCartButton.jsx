@@ -3,8 +3,9 @@ import CountButtons from "./CountButtons";
 import styles from "./addToCartButton.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCartData, deleteItem, setOneItemInCart, submitOneItem, setCartData } from "../redux/cartSlice";
+import { maxAmount } from "../utils/constants";
 
-export default function AddToCartButton({ id }) {
+export default function AddToCartButton({ id, totalPrice }) {
     const dispatch = useDispatch();
     const isLoading = useSelector(state => state.cart.isLoading);
     const isSubmitting = useSelector(state => state.cart.isSubmitting);
@@ -14,6 +15,9 @@ export default function AddToCartButton({ id }) {
 
     const isValid = () => {
         if (isSubmitting || isLoading) {
+            return false;
+        }
+        if (totalPrice > maxAmount) {
             return false;
         }
         return true;

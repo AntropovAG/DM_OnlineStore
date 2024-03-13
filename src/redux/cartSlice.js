@@ -109,7 +109,6 @@ export const submitOneItem = createAsyncThunk(
                 throw new Error("Не удалось оформить заказ.");
             }
             const data = await response.json();
-            console.log("Данные при сабмите: ", data);
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -129,6 +128,7 @@ const cartSclice = createSlice({
         },
         isLoading: false,
         isSubmitting: false,
+        popupIsOpen: false,
     },
     reducers: {
         updateCartData(state, action) {
@@ -151,6 +151,9 @@ const cartSclice = createSlice({
         },
         setCartData(state, action) {
             state.cartData = action.payload;
+        },
+        togglePopup(state) {
+            state.popupIsOpen = !state.popupIsOpen;
         }
     },
     extraReducers: (builder) => {
@@ -186,6 +189,7 @@ const cartSclice = createSlice({
         })
         .addCase(submitCart.fulfilled, (state) => {
             state.isSubmitting = false;
+            state.popupIsOpen = true;
             state.cartData.data = [];
         })
         .addCase(submitOneItem.pending, (state) => {
@@ -196,9 +200,10 @@ const cartSclice = createSlice({
         })
         .addCase(submitOneItem.fulfilled, (state) => {
             state.isSubmitting = false;
+            state.popupIsOpen = true;
         })
     }
 });
 
-export const { updateCartData, setisInitialLoad, deleteItem, setCartData } = cartSclice.actions;
+export const { updateCartData, setisInitialLoad, deleteItem, setCartData, togglePopup } = cartSclice.actions;
 export default cartSclice.reducer;

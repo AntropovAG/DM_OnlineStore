@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { formatPrice } from "../utils/supportFunctions";
 import { useEffect } from "react";
 import { updateCart, submitCart } from "../redux/cartSlice";
+import { maxAmount } from "../utils/constants";
 
 export default function CartWindet({ isOpen }) {
   const cartContent = useSelector((state) => state.cart.cartContent.data);
@@ -12,7 +13,6 @@ export default function CartWindet({ isOpen }) {
   const isSubmitting = useSelector((state) => state.cart.isSubmitting);
   const dispatch = useDispatch();
   const cartData = useSelector((state) => state.cart.cartData);
-  let maxAmount = 10000;
 
   const isValid = () => {
     if (cartContent.length === 0) {
