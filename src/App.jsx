@@ -15,7 +15,7 @@ function App() {
   
   useEffect(() => {
     dispatch(fetchCart())
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="container">

@@ -129,6 +129,7 @@ const cartSclice = createSlice({
         isLoading: false,
         isSubmitting: false,
         popupIsOpen: false,
+        initialLoad: true,
     },
     reducers: {
         updateCartData(state, action) {
@@ -154,13 +155,14 @@ const cartSclice = createSlice({
         },
         togglePopup(state) {
             state.popupIsOpen = !state.popupIsOpen;
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
         .addCase(fetchCart.fulfilled, (state, action) => {
             state.cartContent.data = action.payload;
             state.cartData.data = action.payload.map((item)=>({"id": item.product.id, "quantity": item.quantity}))
+            state.initialLoad = false;
         })
         .addCase(updateCart.pending, (state) => {
             state.isLoading = true;

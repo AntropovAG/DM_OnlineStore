@@ -13,6 +13,7 @@ export default function CartWindet({ isOpen }) {
   const isSubmitting = useSelector((state) => state.cart.isSubmitting);
   const dispatch = useDispatch();
   const cartData = useSelector((state) => state.cart.cartData);
+  const initialLoad = useSelector((state) => state.cart.initialLoad);
 
   const isValid = () => {
     if (cartContent.length === 0) {
@@ -56,8 +57,10 @@ export default function CartWindet({ isOpen }) {
   }
 
   useEffect(() => {
-    dispatch(updateCart(cartData));
-  }, [cartData, dispatch]);
+    if (!initialLoad) {
+      dispatch(updateCart(cartData));
+    }
+  }, [cartData, dispatch, initialLoad]);
 
 
   return (
