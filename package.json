@@ -2,7 +2,7 @@
   "name": "dm_online_store",
   "private": false,
   "version": "0.0.0",
-  "homepage": "https://antropovag.github.io/dm_online_store",
+  "homepage": "https://antropovag.github.io/dm_online_store/",
   "type": "module",
   "scripts": {
     "dev": "vite",
