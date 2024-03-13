@@ -1,12 +1,11 @@
 import styles from "./cartItem.module.css";
 import CountButtons from "./CountButtons";
-
 import { formatPrice } from "../utils/supportFunctions";
 import { updateCartData, deleteItem } from "../redux/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CartItem({item}) {
-
+    const isLoading = useSelector(state => state.cart.isLoading);
     const {quantity} = item;
     const {picture, title, price, id} = item.product;
     const batchPrice = () => {
@@ -16,18 +15,24 @@ export default function CartItem({item}) {
 
     const increment = () => {
         if (quantity > 10) return;
+        if (!isLoading) {
         let counting = quantity + 1;
         dispatch(updateCartData({id, count: counting}));
+        }
     };
 
     const decrement = () => {
         if (quantity < 0) return;
+        if (!isLoading) {
         let counting = quantity - 1;
         dispatch(updateCartData({id, count: counting}));
+    }
     };
 
     const deleteItemFromCart = () => {
+        if (!isLoading) {
         dispatch(deleteItem({id}));
+        }
     }
 
     const renderDeleteButton = () => {

@@ -36,13 +36,86 @@ export const updateCart = createAsyncThunk(
                 throw new Error("Не удалось обновить данные о корзине.");
             }
             const data = await response.json();
-            console.log("Данные о корзине обновлены! Вызов!", data);
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
         }
     }
 );
+
+export const setOneItemInCart = createAsyncThunk(
+    "cart/setOneItemInCart",
+    async (cartData, { rejectWithValue }) => {
+        try {
+            const response = await fetch(
+                `https://skillfactory-task.detmir.team/cart/update`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(cartData),
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Не удалось обновить данные о корзине.");
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    })
+
+export const submitCart = createAsyncThunk(
+    "cart/submitCart",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await fetch(
+                `https://skillfactory-task.detmir.team/cart/submit`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Не удалось оформить заказ.");
+            }
+            const data = await response.json();
+            console.log("Данные при сабмите: ", data);
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+)
+
+export const submitOneItem = createAsyncThunk(
+    "cart/submitOneItem",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await fetch(
+                `https://skillfactory-task.detmir.team/cart/submit`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Не удалось оформить заказ.");
+            }
+            const data = await response.json();
+            console.log("Данные при сабмите: ", data);
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+)
 
 
 const cartSclice = createSlice({
@@ -53,13 +126,14 @@ const cartSclice = createSlice({
         },
         cartData: {
             "data": [],
-        }
+        },
+        isLoading: false,
+        isSubmitting: false,
     },
     reducers: {
         updateCartData(state, action) {
             const {id, count} = action.payload;
             const indexWithId = state.cartData.data.findIndex((item) => item.id === id);
-            console.log(indexWithId)
             if(indexWithId !== -1) {
                 state.cartData.data[indexWithId].quantity = count;
             } else {
@@ -74,6 +148,9 @@ const cartSclice = createSlice({
         addItem(state, action) {
             const {id, count} = action.payload;
             state.cartData.data.push({id, quantity: count});
+        },
+        setCartData(state, action) {
+            state.cartData = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -82,12 +159,46 @@ const cartSclice = createSlice({
             state.cartContent.data = action.payload;
             state.cartData.data = action.payload.map((item)=>({"id": item.product.id, "quantity": item.quantity}))
         })
+        .addCase(updateCart.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(updateCart.rejected, (state) => {
+            state.isLoading = false;
+        })        
         .addCase(updateCart.fulfilled, (state, action) => {
+            state.isLoading = false;
             state.cartContent.data = action.payload;
-        });
-    
+        })
+        .addCase(setOneItemInCart.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(setOneItemInCart.rejected, (state) => {
+            state.isLoading = false;
+        })
+        .addCase(setOneItemInCart.fulfilled, (state) => {
+            state.isLoading = false;
+        })
+        .addCase(submitCart.pending, (state) => {
+            state.isSubmitting = true;
+        })
+        .addCase(submitCart.rejected, (state) => {
+            state.isSubmitting = false;
+        })
+        .addCase(submitCart.fulfilled, (state) => {
+            state.isSubmitting = false;
+            state.cartData.data = [];
+        })
+        .addCase(submitOneItem.pending, (state) => {
+            state.isSubmitting = true;
+        })
+        .addCase(submitOneItem.rejected, (state) => {
+            state.isSubmitting = false;
+        })
+        .addCase(submitOneItem.fulfilled, (state) => {
+            state.isSubmitting = false;
+        })
     }
 });
 
-export const { updateCartData, setisInitialLoad, deleteItem } = cartSclice.actions;
+export const { updateCartData, setisInitialLoad, deleteItem, setCartData } = cartSclice.actions;
 export default cartSclice.reducer;

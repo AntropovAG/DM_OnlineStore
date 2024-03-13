@@ -7,22 +7,9 @@ export default function Cart() {
     const [isOpen, setIsOpen] = useState(false)
 
     const cartQuantity = useSelector((state) => state.cart.cartContent.data.length);
-    // const data = {
-    //     "data": [
-    //       {
-    //         "id": "4966233",
-    //         "quantity": 2
-    //       },
-    //       {
-    //         "id": "6024091",
-    //         "quantity": 5
-    //       },
-    //       {
-    //         "id": "3511821",
-    //         "quantity": 3
-    //       }
-    //     ]
-    // };
+    
+    //Если нужно посчитать количество товаров в корзине, а не количество позиций, то можно использовать следующий код:
+    // const cartQuantity = useSelector((state) => state.cart.cartContent.data.reduce((acc, item) => acc + item.quantity, 0));
 
 
     const toggleIsOpen = () => {

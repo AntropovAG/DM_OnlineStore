@@ -2,37 +2,56 @@ import Button from "./Button";
 import CountButtons from "./CountButtons";
 import styles from "./addToCartButton.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { updateCartData, deleteItem } from "../redux/cartSlice";
+import { updateCartData, deleteItem, setOneItemInCart, submitOneItem, setCartData } from "../redux/cartSlice";
 
 export default function AddToCartButton({ id }) {
     const dispatch = useDispatch();
+    const isLoading = useSelector(state => state.cart.isLoading);
+    const isSubmitting = useSelector(state => state.cart.isSubmitting);
     const data = useSelector((state) => state.cart.cartData.data);
     const isInCart = data.some((item) => item.id === id);
-    console.log("is in cart? ", isInCart, "ID: ", id, "DATA: ", data)
     const quantity = isInCart ? data.find((item) => item.id === id).quantity : 0;
 
+    const isValid = () => {
+        if (isSubmitting || isLoading) {
+            return false;
+        }
+        return true;
+    }
 
     const increment = () => {
         if (quantity > 10) return;
+        if (!isLoading) {
         let counting = quantity + 1;
         dispatch(updateCartData({ id, count: counting }));
+        }
     };
 
     const decrement = () => {
         if (quantity < 0) return;
+        if (!isLoading) {
         let counting = quantity - 1;
         if (counting === 0) {
-            console.log("Удаление");
             dispatch(deleteItem({ id }));
         } else {
             dispatch(updateCartData({ id, count: counting }));
         }
-
+    }
     };
 
 
     const handleClick = () => {
-        console.log("Купить");
+        if (!isSubmitting || !isLoading) {
+            const remainingCartItemsData = {
+                "data": data.filter((item) => item.id !== id)
+            }
+            const currentItemData = {
+                "data": data.filter((item) => item.id === id)
+            }
+            dispatch(setOneItemInCart(currentItemData))
+            dispatch(submitOneItem())
+            dispatch(setCartData(remainingCartItemsData))
+        }
     };
 
     return (
@@ -42,7 +61,7 @@ export default function AddToCartButton({ id }) {
             ) : (
                 <div className={styles.buttonsContainer}>
                     <CountButtons decrement={decrement} increment={increment} count={quantity} />
-                    <Button buttonName={"Оформить заказ"} handleClick={handleClick} />
+                    <Button buttonName={"Оформить заказ"} handleClick={handleClick} disabled={!isValid()}/>
                 </div>
             )}
         </div>
