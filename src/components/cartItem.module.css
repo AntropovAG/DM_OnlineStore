@@ -1,0 +1,90 @@
+.orderItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 0;
+    border-bottom: 1px solid rgb(242, 242, 242);
+}
+
+.orderImg {
+    width: 52px;
+    height: 52px;
+}
+
+.orderTitle {
+    max-width: 144px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.buttonsContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.orderPriceContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 112px;
+    min-height: 40px;
+    align-items: flex-end;
+}
+
+.orderUnitPrice {
+    color: rgb(128, 128, 128);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+}
+
+.orderBatchPrice {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+}
+
+.deleteItemButton {
+    display: flex;
+    width: 112px;
+    gap: 4px;
+    color: rgb(237, 44, 25);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    justify-content: flex-end;
+}
+
+.deleteItemButtonImg {
+    width: 20px;
+    height: 20px;
+}
+
+.deleteItemButton:hover {
+    opacity: .8;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 585px) {
+    .orderItem {
+        flex-direction: column;
+    }
+    
+    .orderPriceContainer {
+        align-items: center;
+    }
+}

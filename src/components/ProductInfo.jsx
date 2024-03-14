@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import Loader from "./Loader";
 import NotFound from "./NotFound";
 import AddToCartButton from "./AddToCartButton";
+import { formatPrice } from "../utils/supportFunctions";
+import { maxAmount } from "../utils/constants";
 
 export default function ProductInfo() {
   const { id } = useParams();
@@ -15,16 +17,44 @@ export default function ProductInfo() {
   const { picture, title, rating, price, description } = useSelector(
     (state) => state.goods.goodWithId
   );
+  const data = useSelector((state) => state.cart.cartData.data);
+  const isInCart = data.some((item) => item.id === id);
+  const quantity = isInCart ? data.find((item) => item.id === id).quantity : 0;
+  const batchPrice = () => {
+    return quantity * price;
+}
   const isLoading = useSelector((state) => state.goods.isLoading);
   const error = useSelector((state) => state.goods.errorMessage);
-  const formattedPrice = new Intl.NumberFormat("ru-RU").format(price);
   const dispatch = useDispatch();
+
+  const errorSpan = () => {
+    if (batchPrice() > maxAmount) {
+      return (<span className={styles.errorMessage}>Сумма заказа не должна превышать 10 000 рублей</span>);
+    }
+    return (<span className={styles.errorMessage}></span>);
+  }
+
 
   useEffect(() => {
     if (id) {
       dispatch(fetchGoodByID(id));
     }
   }, []);
+
+  const renderPriceContainer = () => {
+    return (
+        <div className={styles.orderPriceContainer}>
+            {quantity > 1 ? (
+                <>
+                    <p className={styles.orderUnitPrice}>{formatPrice(price)} &#8381; за шт.</p>
+                    <p className={styles.orderBatchPrice}>{formatPrice(batchPrice())} &#8381;</p>
+                </>
+            ) : (
+                <p className={styles.orderBatchPrice}>{formatPrice(price)} &#8381;</p>
+            )}
+        </div>
+    );
+};
 
   return (
     <>
@@ -49,8 +79,9 @@ export default function ProductInfo() {
                 <ProductRaiting rating={rating} />
               </div>
               <div>
-                <p className={styles.price}>{formattedPrice} &#8381;</p>
-                <AddToCartButton />
+                {renderPriceContainer()}
+                <AddToCartButton id={id} totalPrice={batchPrice()}/>
+                {errorSpan()}
               </div>
               <div>
                 <h3 className={styles.returnPolicyTitle}>
