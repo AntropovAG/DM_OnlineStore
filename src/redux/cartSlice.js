@@ -160,8 +160,9 @@ const cartSclice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(fetchCart.fulfilled, (state, action) => {
+            const formattedData = action.payload.map((item)=>({"id": item.product.id, "quantity": item.quantity}));
             state.cartContent.data = action.payload;
-            state.cartData.data = action.payload.map((item)=>({"id": item.product.id, "quantity": item.quantity}))
+            state.cartData.data = formattedData;
             state.initialLoad = false;
         })
         .addCase(updateCart.pending, (state) => {
