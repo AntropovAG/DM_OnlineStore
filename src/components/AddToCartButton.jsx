@@ -65,7 +65,7 @@ export default function AddToCartButton({ id, totalPrice }) {
             ) : (
                 <div className={styles.buttonsContainer}>
                     <CountButtons decrement={decrement} increment={increment} count={quantity} />
-                    <Button buttonName={"Оформить заказ"} handleClick={handleClick} disabled={!isValid()}/>
+                    <Button buttonName={isSubmitting ? "Загрузка" : "Оформить заказ"} handleClick={handleClick} disabled={!isValid()}/>
                 </div>
             )}
         </div>

@@ -5,7 +5,10 @@ export const fetchCart = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await fetch(
-                `https://skillfactory-task.detmir.team/cart`
+                `https://skillfactory-task.detmir.team/cart`,
+                {
+                    credentials: "include",
+                }
             );
             if (!response.ok) {
                 throw new Error("Не удалось получить данные о корзине.");
@@ -26,6 +29,7 @@ export const updateCart = createAsyncThunk(
                 `https://skillfactory-task.detmir.team/cart/update`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -51,6 +55,7 @@ export const setOneItemInCart = createAsyncThunk(
                 `https://skillfactory-task.detmir.team/cart/update`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -75,6 +80,7 @@ export const submitCart = createAsyncThunk(
                 `https://skillfactory-task.detmir.team/cart/submit`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -100,6 +106,7 @@ export const submitOneItem = createAsyncThunk(
                 `https://skillfactory-task.detmir.team/cart/submit`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -130,6 +137,7 @@ const cartSclice = createSlice({
         isSubmitting: false,
         popupIsOpen: false,
         initialLoad: true,
+        orderSubmitted: false,
     },
     reducers: {
         updateCartData(state, action) {
@@ -186,13 +194,16 @@ const cartSclice = createSlice({
         })
         .addCase(submitCart.pending, (state) => {
             state.isSubmitting = true;
+            state.orderSubmitted = false;
         })
         .addCase(submitCart.rejected, (state) => {
             state.isSubmitting = false;
+            state.orderSubmitted = false;
         })
         .addCase(submitCart.fulfilled, (state) => {
             state.isSubmitting = false;
             state.popupIsOpen = true;
+            state.orderSubmitted = true;
             state.cartData.data = [];
         })
         .addCase(submitOneItem.pending, (state) => {

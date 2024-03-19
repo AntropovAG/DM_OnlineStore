@@ -75,7 +75,7 @@ export default function CartWindet({ isOpen }) {
         <p className={styles.totalPriceNumber}>{formatPrice(totalPrice)} &#8381;</p>
       </div>
       {errorSpan()}
-      <Button buttonName={"Оформить заказ"} handleClick={handleClick} disabled={!isValid()} />
+      <Button buttonName={isSubmitting? "Загрузка" : "Оформить заказ"} handleClick={handleClick} disabled={!isValid()} />
     </div>
   )
 }
