@@ -149,6 +149,18 @@ const cartSclice = createSlice({
                 state.cartData.data.push({id, quantity: count});
             }
         },
+        updateFromOrder(state, action) {
+            const orderArray = action.payload;
+            orderArray.forEach((item) => {
+                const {id, quantity} = item;
+                const indexWithId = state.cartData.data.findIndex((cartItem) => cartItem.id === id);
+                if(indexWithId !== -1) {
+                    state.cartData.data[indexWithId].quantity += quantity;
+                } else {
+                    state.cartData.data.push({id, quantity});
+                }
+            });
+        },
         deleteItem(state, action) {
             const {id} = action.payload;
             const indexWithId = state.cartData.data.findIndex((item) => item.id === id);
@@ -219,5 +231,5 @@ const cartSclice = createSlice({
     }
 });
 
-export const { updateCartData, setisInitialLoad, deleteItem, setCartData, togglePopup } = cartSclice.actions;
+export const { updateCartData, setisInitialLoad, deleteItem, setCartData, togglePopup, updateFromOrder } = cartSclice.actions;
 export default cartSclice.reducer;
