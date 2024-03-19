@@ -18,3 +18,22 @@
     font-weight: 700;
     justify-self: center;
 }
+
+@media screen and (max-width: 1300px) {
+    .container {
+        max-width: 1000px;
+        grid-auto-rows: min-content;
+    }
+}
+
+@media screen and (max-width: 1020px) {
+    .container {
+        max-width: 580px;
+    }
+}
+
+@media screen and (max-width: 585px) {
+    .container {
+        max-width: 300px;
+    }
+}

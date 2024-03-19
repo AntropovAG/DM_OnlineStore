@@ -72,3 +72,48 @@
     align-items: flex-start;
     min-width: fit-content;
 }
+
+@media screen and (max-width: 1300px) {
+    .container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .orderNumberContainer {
+        flex-direction: row;
+    }
+
+    .orderDescriptionContainer {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 585px) {
+    .container {
+        gap: 8px;
+        max-width: 300px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        padding: 16px;
+    }
+
+    .orderDescriptionContainer {
+        display: grid;
+        max-width: 300px;
+        grid-template-areas: 
+            "titleContainer infoContainer"
+            "button         button";
+    }
+
+    .titleContainer {
+        grid-area: titleContainer;
+    }
+    
+    .infoContainer {
+        grid-area: infoContainer;
+    }
+
+    button {
+        grid-area: button;
+    }
+}
