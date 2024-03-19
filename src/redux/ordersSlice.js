@@ -6,7 +6,7 @@ export const fetchOnPageLoad = createAsyncThunk(
         dispatch(resetStates())
         try {
             const response = await fetch(
-                `https://skillfactory-task.detmir.team/orders?page=1&limit=1`,
+                `https://skillfactory-task.detmir.team/orders?page=1&limit=3`,
                 {
                     credentials: "include"
                 }
@@ -28,7 +28,7 @@ export const fetchOrders = createAsyncThunk(
     async (page, { rejectWithValue, dispatch }) => {
         try {
             const response = await fetch(
-                `https://skillfactory-task.detmir.team/orders?page=${page}&limit=1`,
+                `https://skillfactory-task.detmir.team/orders?page=${page}&limit=3`,
                 {
                     credentials: "include"
                 }
@@ -78,7 +78,7 @@ const ordersSlice = createSlice({
                 state.orders = state.orders.concat(action.payload.data);
                 if (
                     action.payload.data.length === 0 ||
-                    action.payload.data.length < 1
+                    action.payload.data.length < 3
                 ) {
                     state.allGoodsLoaded = true;
                 } else {
@@ -103,7 +103,7 @@ const ordersSlice = createSlice({
                 state.orders = state.orders.concat(action.payload.data);
                 if (
                     action.payload.data.length === 0 ||
-                    action.payload.data.length < 1
+                    action.payload.data.length < 3
                 ) {
                     state.allGoodsLoaded = true;
                 }

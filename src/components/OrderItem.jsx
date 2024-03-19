@@ -5,7 +5,7 @@ import { formatPrice } from '../utils/supportFunctions';
 
 export default function OrderItem({item}) {
     const orderDate = formatDate(item[0].createdAt);
-    const totalOrderSum = formatPrice(item.reduce((acc, item) => acc + item.product.price, 0));
+    const totalOrderSum = formatPrice(item.reduce((acc, item) => acc + item.product.price * item.quantity, 0));
     const orderNumber = 1111;
 
     return (
