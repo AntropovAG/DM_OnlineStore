@@ -136,7 +136,6 @@ const cartSclice = createSlice({
         isSubmitting: false,
         popupIsOpen: false,
         initialLoad: true,
-        orderSubmitted: false,
     },
     reducers: {
         updateCartData(state, action) {
@@ -175,9 +174,6 @@ const cartSclice = createSlice({
         togglePopup(state) {
             state.popupIsOpen = !state.popupIsOpen;
         },
-        setOrderSubmitted(state, action) {
-            state.orderSubmitted = action.payload;
-        }
     },
     extraReducers: (builder) => {
         builder
@@ -230,5 +226,5 @@ const cartSclice = createSlice({
     }
 });
 
-export const { updateCartData, setisInitialLoad, deleteItem, setCartData, togglePopup, updateFromOrder, setOrderSubmitted } = cartSclice.actions;
+export const { updateCartData, setisInitialLoad, deleteItem, setCartData, togglePopup, updateFromOrder } = cartSclice.actions;
 export default cartSclice.reducer;

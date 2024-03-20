@@ -2,7 +2,6 @@ import styles from './ordersList.module.css';
 import OrderItem from '../OrderItem/OrderItem';
 import { useEffect, useState } from 'react';
 import { fetchOrders, setFirstLoading, fetchOnPageLoad } from '../../redux/ordersSlice';
-import { setOrderSubmitted } from '../../redux/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { InView } from 'react-intersection-observer';
 import Loader from '../Loader/Loader';
@@ -16,26 +15,12 @@ export default function OrdersList() {
   const allOrdersLoaded = useSelector(state => state.orders.allGoodsLoaded);
   const errorMessage = useSelector(state => state.orders.error);
   const [isInView, setIsInView] = useState(false);
-  const orderSubmitted = useSelector(state => state.cart.orderSubmitted);
-  const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
-    if(firstRender) {
-      dispatch(fetchOnPageLoad()).finally(() => {
-        dispatch(setFirstLoading(true));
-        setFirstRender(false);
-      });
-    }
-  }, [orderSubmitted, firstRender, dispatch]);
-  
-  useEffect(() => {
-    if(orderSubmitted && !firstRender) {
       dispatch(fetchOnPageLoad()).finally(() => {
         dispatch(setFirstLoading(true));
       });
-      dispatch(setOrderSubmitted(false));
-    }
-  }, [orderSubmitted, firstRender, dispatch]);
+  }, []);
   
   useEffect(() => {
     if (isInView && !isLoading && !allOrdersLoaded) {

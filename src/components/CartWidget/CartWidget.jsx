@@ -4,9 +4,10 @@ import Button from "../Button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { formatPrice } from "../../utils/supportFunctions";
 import { useEffect } from "react";
-import { updateCart, submitCart, setOrderSubmitted } from "../../redux/cartSlice";
+import { updateCart, submitCart } from "../../redux/cartSlice";
 import { maxAmount } from "../../utils/constants";
 import { useLocation } from "react-router-dom";
+import { fetchOnPageLoad, setFirstLoading } from "../../redux/ordersSlice";
 
 export default function CartWindet({ isOpen }) {
   const cartContent = useSelector((state) => state.cart.cartContent.data);
@@ -16,7 +17,7 @@ export default function CartWindet({ isOpen }) {
   const cartData = useSelector((state) => state.cart.cartData);
   const initialLoad = useSelector((state) => state.cart.initialLoad);
   const location = useLocation();
-  const isOnordersPage = location.pathname === "/orders";
+  const isOnOrdersPage = location.pathname === "/orders";
 
   const isValid = () => {
     if (cartContent.length === 0) {
@@ -55,10 +56,13 @@ export default function CartWindet({ isOpen }) {
 
   const handleClick = () => {
     if (!isSubmitting) {
-        dispatch(submitCart());
-        if (isOnordersPage) {
-          dispatch(setOrderSubmitted(true));
-        }
+        dispatch(submitCart()).then(() => {
+          if (isOnOrdersPage) {
+            dispatch(fetchOnPageLoad()).finally(() => {
+              dispatch(setFirstLoading(true));
+            });
+          }
+        })
     }
   }
 
