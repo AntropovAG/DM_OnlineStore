@@ -1,5 +1,5 @@
 import styles from "./cart.module.css";
-import CartWidget from "./CartWidget";
+import CartWidget from "../CartWidget/CartWidget";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 

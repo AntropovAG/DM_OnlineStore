@@ -68,7 +68,7 @@ const ordersSlice = createSlice({
         },
         setFirstLoading: (state, action) => {
             state.firstLoading = action.payload;
-        },
+        }
     },
     extraReducers: (builder) => {
         builder

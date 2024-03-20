@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './productItem.module.css'
-import ProductRaiting from './ProductRaiting';
-import { formatPrice } from '../utils/supportFunctions';
+import ProductRaiting from '../ProductRating/ProductRaiting';
+import { formatPrice } from '../../utils/supportFunctions';
 
 export default function ProductItem(item) {
     const { id, picture, title, rating, price } = item;

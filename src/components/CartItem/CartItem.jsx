@@ -1,7 +1,7 @@
 import styles from "./cartItem.module.css";
-import CountButtons from "./CountButtons";
-import { formatPrice } from "../utils/supportFunctions";
-import { updateCartData, deleteItem } from "../redux/cartSlice";
+import CountButtons from "../CountButtons/CountButtons";
+import { formatPrice } from "../../utils/supportFunctions";
+import { updateCartData, deleteItem } from "../../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CartItem({item}) {

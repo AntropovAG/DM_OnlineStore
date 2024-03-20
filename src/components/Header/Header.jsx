@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import Cart from "./Cart";
+import Cart from "../Cart/Cart";
 import styles from "./header.module.css";
 
 export default function Header() {

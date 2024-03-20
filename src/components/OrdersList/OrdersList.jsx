@@ -1,10 +1,11 @@
 import styles from './ordersList.module.css';
-import OrderItem from './OrderItem';
+import OrderItem from '../OrderItem/OrderItem';
 import { useEffect, useState } from 'react';
-import { fetchOrders, setFirstLoading, fetchOnPageLoad } from '../redux/ordersSlice';
+import { fetchOrders, setFirstLoading, fetchOnPageLoad } from '../../redux/ordersSlice';
+import { setOrderSubmitted } from '../../redux/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { InView } from 'react-intersection-observer';
-import Loader from './Loader';
+import Loader from '../Loader/Loader';
 
 export default function OrdersList() {
   const dispatch = useDispatch();
@@ -16,19 +17,26 @@ export default function OrdersList() {
   const errorMessage = useSelector(state => state.orders.error);
   const [isInView, setIsInView] = useState(false);
   const orderSubmitted = useSelector(state => state.cart.orderSubmitted);
+  const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
-    if (orderSubmitted) {
-      dispatch(fetchOnPageLoad());
+    if(firstRender && !orderSubmitted) {
+      dispatch(fetchOnPageLoad()).finally(() => {
+        dispatch(setFirstLoading(true));
+        setFirstRender(false);
+      });
     }
-  }, [orderSubmitted]);
-
+  }, [orderSubmitted, firstRender, dispatch]);
+  
   useEffect(() => {
-    dispatch(fetchOnPageLoad()).finally(() => {
-      dispatch(setFirstLoading(true));
-    });
-  }, []);
-
+    if(orderSubmitted && !firstRender) {
+      dispatch(fetchOnPageLoad()).finally(() => {
+        dispatch(setFirstLoading(true));
+      });
+      dispatch(setOrderSubmitted(false));
+    }
+  }, [orderSubmitted, firstRender, dispatch]);
+  
   useEffect(() => {
     if (isInView && !isLoading && !allOrdersLoaded) {
       if (firstLoaded === true) {
@@ -50,7 +58,7 @@ export default function OrdersList() {
             )}
           </>
         ) : (
-          data.map((item, index) => <OrderItem key={index} item={item} />)
+          data.map((item, index) => <OrderItem key={index} item={item} orderNumber={index} />)
         )}
       </div>
 

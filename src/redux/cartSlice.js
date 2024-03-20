@@ -176,6 +176,10 @@ const cartSclice = createSlice({
         togglePopup(state) {
             state.popupIsOpen = !state.popupIsOpen;
         },
+        setOrderSubmitted(state, action) {
+            console.log("Action payload: ", action.payload);
+            state.orderSubmitted = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -206,11 +210,9 @@ const cartSclice = createSlice({
         })
         .addCase(submitCart.pending, (state) => {
             state.isSubmitting = true;
-            state.orderSubmitted = false;
         })
         .addCase(submitCart.rejected, (state) => {
             state.isSubmitting = false;
-            state.orderSubmitted = false;
         })
         .addCase(submitCart.fulfilled, (state) => {
             state.isSubmitting = false;
@@ -231,5 +233,5 @@ const cartSclice = createSlice({
     }
 });
 
-export const { updateCartData, setisInitialLoad, deleteItem, setCartData, togglePopup, updateFromOrder } = cartSclice.actions;
+export const { updateCartData, setisInitialLoad, deleteItem, setCartData, togglePopup, updateFromOrder, setOrderSubmitted } = cartSclice.actions;
 export default cartSclice.reducer;
