@@ -20,7 +20,7 @@ export default function OrdersList() {
   const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
-    if(firstRender && !orderSubmitted) {
+    if(firstRender) {
       dispatch(fetchOnPageLoad()).finally(() => {
         dispatch(setFirstLoading(true));
         setFirstRender(false);

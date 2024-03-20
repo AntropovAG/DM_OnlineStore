@@ -90,7 +90,6 @@ export const submitCart = createAsyncThunk(
                 throw new Error("Не удалось оформить заказ.");
             }
             const data = await response.json();
-            console.log("Данные при сабмите: ", data);
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -177,7 +176,6 @@ const cartSclice = createSlice({
             state.popupIsOpen = !state.popupIsOpen;
         },
         setOrderSubmitted(state, action) {
-            console.log("Action payload: ", action.payload);
             state.orderSubmitted = action.payload;
         }
     },
@@ -217,7 +215,6 @@ const cartSclice = createSlice({
         .addCase(submitCart.fulfilled, (state) => {
             state.isSubmitting = false;
             state.popupIsOpen = true;
-            state.orderSubmitted = true;
             state.cartData.data = [];
         })
         .addCase(submitOneItem.pending, (state) => {
