@@ -14,6 +14,8 @@
     opacity: 0;
     visibility: collapse;
     transition: all 0.3s ease-in-out;
+    overflow: scroll;
+    max-height: 100vh;
 }
 
 .visible {

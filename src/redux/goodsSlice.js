@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { displayLimit } from "../utils/constants";
 
 export const fetchGoods = createAsyncThunk(
     "goods/fetchGoods",
     async (page, { rejectWithValue, dispatch }) => {
         try {
             const response = await fetch(
-                `https://skillfactory-task.detmir.team/products?page=${page}&limit=5&sort=title%3Aasc`
+                `https://skillfactory-task.detmir.team/products?page=${page}&limit=${displayLimit}&sort=title%3Aasc`,
+                {
+                    credentials: "include"
+                }
             );
             if(!response.ok) {
                 throw new Error("Ошибка сервера, пожалуйста попробуйте позднее.")
@@ -25,7 +29,10 @@ export const fetchCashedGoods = createAsyncThunk(
     async ({limit, page}, { rejectWithValue, dispatch }) => {
         try {
             const response = await fetch(
-                `https://skillfactory-task.detmir.team/products?page=1&limit=${limit}&sort=title%3Aasc`
+                `https://skillfactory-task.detmir.team/products?page=1&limit=${limit}&sort=title%3Aasc`,
+                {
+                    credentials: "include"
+                }
             );
             if(!response.ok) {
                 throw new Error("Ошибка сервера, пожалуйста попробуйте позднее.")
@@ -45,7 +52,10 @@ export const fetchGoodByID = createAsyncThunk(
     async (id, {rejectWithValue}) => {
         try {
             const response = await fetch(
-                `https://skillfactory-task.detmir.team/products/${id}`
+                `https://skillfactory-task.detmir.team/products/${id}`,
+                {
+                    credentials: "include"
+                }
             );
             if(!response.ok) {
                 throw new Error("Товар не найден.")
@@ -91,7 +101,7 @@ const goodsSlice = createSlice({
                 state.goods = state.goods.concat(action.payload.data);
                 if (
                     action.payload.data.length === 0 ||
-                    action.payload.data.length < 5
+                    action.payload.data.length < displayLimit
                 ) {
                     state.allGoodsLoaded = true;
                 }
@@ -103,7 +113,6 @@ const goodsSlice = createSlice({
             .addCase(fetchGoods.rejected, (state, action) => {
                 state.isLoading = false;
                 state.errorMessage = action.payload;
-                console.log(state.errorMessage);
             })
             .addCase(fetchCashedGoods.fulfilled, (state, action) => {
                 state.errorMessage = null;
@@ -111,7 +120,7 @@ const goodsSlice = createSlice({
                 state.goods = state.goods.concat(action.payload.data);
                 if (
                     action.payload.data.length === 0 ||
-                    action.payload.data.length < 5
+                    action.payload.data.length < displayLimit
                 ) {
                     state.allGoodsLoaded = true;
                 }

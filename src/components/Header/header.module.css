@@ -31,9 +31,6 @@
 
 .navLink:hover {
     color: rgb(0, 115, 230);
-    text-decoration: underline;
-    text-decoration-thickness: 3px;
-    text-underline-offset: 10px;
     transition: all .3s ease;
 }
 

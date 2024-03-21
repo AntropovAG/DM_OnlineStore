@@ -5,7 +5,10 @@ export const fetchCart = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await fetch(
-                `https://skillfactory-task.detmir.team/cart`
+                `https://skillfactory-task.detmir.team/cart`,
+                {
+                    credentials: "include",
+                }
             );
             if (!response.ok) {
                 throw new Error("Не удалось получить данные о корзине.");
@@ -26,6 +29,7 @@ export const updateCart = createAsyncThunk(
                 `https://skillfactory-task.detmir.team/cart/update`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -51,6 +55,7 @@ export const setOneItemInCart = createAsyncThunk(
                 `https://skillfactory-task.detmir.team/cart/update`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -75,6 +80,7 @@ export const submitCart = createAsyncThunk(
                 `https://skillfactory-task.detmir.team/cart/submit`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -84,7 +90,6 @@ export const submitCart = createAsyncThunk(
                 throw new Error("Не удалось оформить заказ.");
             }
             const data = await response.json();
-            console.log("Данные при сабмите: ", data);
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -100,6 +105,7 @@ export const submitOneItem = createAsyncThunk(
                 `https://skillfactory-task.detmir.team/cart/submit`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -140,6 +146,18 @@ const cartSclice = createSlice({
             } else {
                 state.cartData.data.push({id, quantity: count});
             }
+        },
+        updateFromOrder(state, action) {
+            const orderArray = action.payload;
+            orderArray.forEach((item) => {
+                const {id, quantity} = item;
+                const indexWithId = state.cartData.data.findIndex((cartItem) => cartItem.id === id);
+                if(indexWithId !== -1) {
+                    state.cartData.data[indexWithId].quantity += quantity;
+                } else {
+                    state.cartData.data.push({id, quantity});
+                }
+            });
         },
         deleteItem(state, action) {
             const {id} = action.payload;
@@ -208,5 +226,5 @@ const cartSclice = createSlice({
     }
 });
 
-export const { updateCartData, setisInitialLoad, deleteItem, setCartData, togglePopup } = cartSclice.actions;
+export const { updateCartData, setisInitialLoad, deleteItem, setCartData, togglePopup, updateFromOrder } = cartSclice.actions;
 export default cartSclice.reducer;

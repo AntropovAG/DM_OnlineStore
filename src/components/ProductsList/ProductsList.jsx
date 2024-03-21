@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ProductItem from "./ProductItem";
-import Loader from "./Loader";
+import ProductItem from "../ProductItem/ProductItem";
+import Loader from "../Loader/Loader";
 import styles from "./productsList.module.css";
 import {
   fetchGoods,
   fetchCashedGoods,
   setFirstLoading,
-} from "../redux/goodsSlice";
+} from "../../redux/goodsSlice";
 import { InView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
 

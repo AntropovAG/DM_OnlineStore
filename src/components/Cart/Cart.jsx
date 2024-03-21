@@ -1,5 +1,5 @@
 import styles from "./cart.module.css";
-import CartWidget from "./CartWidget";
+import CartWidget from "../CartWidget/CartWidget";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -25,7 +25,7 @@ export default function Cart() {
                 <p className={styles.text}>Корзина</p>
                 <span className={styles.text}>({cartQuantity?cartQuantity:0})</span>
             </button>
-            <CartWidget isOpen={isOpen} />
+            <CartWidget isOpen={isOpen} setIsOpen={setIsOpen} />
         </>
 
     );

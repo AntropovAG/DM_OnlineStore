@@ -1,9 +1,9 @@
-import Button from "./Button";
-import CountButtons from "./CountButtons";
+import Button from "../Button/Button";
+import CountButtons from "../CountButtons/CountButtons";
 import styles from "./addToCartButton.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { updateCartData, deleteItem, setOneItemInCart, submitOneItem, setCartData } from "../redux/cartSlice";
-import { maxAmount } from "../utils/constants";
+import { updateCartData, deleteItem, setOneItemInCart, submitOneItem, setCartData } from "../../redux/cartSlice";
+import { maxAmount } from "../../utils/constants";
 
 export default function AddToCartButton({ id, totalPrice }) {
     const dispatch = useDispatch();
@@ -65,7 +65,7 @@ export default function AddToCartButton({ id, totalPrice }) {
             ) : (
                 <div className={styles.buttonsContainer}>
                     <CountButtons decrement={decrement} increment={increment} count={quantity} />
-                    <Button buttonName={"Оформить заказ"} handleClick={handleClick} disabled={!isValid()}/>
+                    <Button buttonName={isSubmitting ? "Загрузка" : "Оформить заказ"} handleClick={handleClick} disabled={!isValid()}/>
                 </div>
             )}
         </div>

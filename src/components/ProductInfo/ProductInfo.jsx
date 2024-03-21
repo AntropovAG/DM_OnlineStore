@@ -1,15 +1,15 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ProductRaiting from "./ProductRaiting";
+import ProductRaiting from "../ProductRating/ProductRaiting";
 import styles from "./productInfo.module.css";
 import { useEffect } from "react";
-import { fetchGoodByID } from "../redux/goodsSlice";
+import { fetchGoodByID } from "../../redux/goodsSlice";
 import { useDispatch } from "react-redux";
-import Loader from "./Loader";
-import NotFound from "./NotFound";
-import AddToCartButton from "./AddToCartButton";
-import { formatPrice } from "../utils/supportFunctions";
-import { maxAmount } from "../utils/constants";
+import Loader from "../Loader/Loader";
+import NotFound from "../NotFound/NotFound";
+import AddToCartButton from "../AddToCartButton/AddToCartButton";
+import { formatPrice } from "../../utils/supportFunctions";
+import { maxAmount } from "../../utils/constants";
 
 export default function ProductInfo() {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import styles from './notification.module.css';
 import { useDispatch } from 'react-redux';
-import { togglePopup } from '../redux/cartSlice';
+import { togglePopup } from '../../redux/cartSlice';
 
 export default function Notification() {
     const dispatch = useDispatch();
