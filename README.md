@@ -12,7 +12,7 @@
 - React (react-create-app);
 - React Router;
 - Redux; 
-- InView,
+- react-intersection-observer (InView),
 - ProgressiveImage,
 - EsLint.
 

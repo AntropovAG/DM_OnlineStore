@@ -99,7 +99,7 @@ export default function ProductsList() {
         onChange={(inView) => {
           setIsInView(inView);
         }}
-        threshold={1}
+        threshold={0}
       ></InView>
     </>
   );
