@@ -11,7 +11,8 @@ export const fetchCart = createAsyncThunk(
                 }
             );
             if (!response.ok) {
-                throw new Error("Не удалось получить данные о корзине.");
+                const serverError = await response.json();
+                throw new Error(serverError.error);
             }
             const data = await response.json();
             return data;
@@ -37,7 +38,8 @@ export const updateCart = createAsyncThunk(
                 }
             );
             if (!response.ok) {
-                throw new Error("Не удалось обновить данные о корзине.");
+                const serverError = await response.json();
+                throw new Error(serverError.error);
             }
             const data = await response.json();
             return data;
@@ -63,7 +65,8 @@ export const setOneItemInCart = createAsyncThunk(
                 }
             );
             if (!response.ok) {
-                throw new Error("Не удалось обновить данные о корзине.");
+                const serverError = await response.json();
+                throw new Error(serverError.error);
             }
             const data = await response.json();
             return data;
@@ -87,7 +90,8 @@ export const submitCart = createAsyncThunk(
                 }
             );
             if (!response.ok) {
-                throw new Error("Не удалось оформить заказ.");
+                const serverError = await response.json();
+                throw new Error(serverError.error);
             }
             const data = await response.json();
             return data;
@@ -112,7 +116,8 @@ export const submitOneItem = createAsyncThunk(
                 }
             );
             if (!response.ok) {
-                throw new Error("Не удалось оформить заказ.");
+                const serverError = await response.json();
+                throw new Error(serverError.error);
             }
             const data = await response.json();
             return data;
@@ -189,7 +194,7 @@ const cartSclice = createSlice({
         })
         .addCase(updateCart.rejected, (state, action) => {
             state.isLoading = false;
-            state.message = action.error.message;
+            state.message = action.payload;
             state.popupIsOpen = true;
         })        
         .addCase(updateCart.fulfilled, (state, action) => {
@@ -202,7 +207,7 @@ const cartSclice = createSlice({
         })
         .addCase(setOneItemInCart.rejected, (state, action) => {
             state.isLoading = false;
-            state.message = action.error.message;
+            state.message = action.payload;
             state.popupIsOpen = true;
         })
         .addCase(setOneItemInCart.fulfilled, (state) => {
@@ -214,7 +219,7 @@ const cartSclice = createSlice({
         })
         .addCase(submitCart.rejected, (state, action) => {
             state.isSubmitting = false;
-            state.message = action.error.message;
+            state.message = action.payload;
             state.popupIsOpen = true;
         })
         .addCase(submitCart.fulfilled, (state) => {
@@ -229,7 +234,7 @@ const cartSclice = createSlice({
         })
         .addCase(submitOneItem.rejected, (state, action) => {
             state.isSubmitting = false;
-            state.message = action.error.message;
+            state.message = action.payload;
             state.popupIsOpen = true;
         })
         .addCase(submitOneItem.fulfilled, (state) => {
