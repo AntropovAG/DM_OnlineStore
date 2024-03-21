@@ -15,7 +15,7 @@ export default function ProductItem(item) {
             </ProgressiveImage>
             <div className={styles.infoContainer}>
                 <h2 className={styles.name}>{title}</h2>
-                <ProductRaiting rating={rating}/>
+                <ProductRaiting rating={rating} />
                 <p className={styles.price}>{formatPrice(price)} &#8381;</p>
             </div>
         </Link>

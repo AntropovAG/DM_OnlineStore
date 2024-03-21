@@ -1,9 +1,9 @@
 .container {
     width: 100%;
     display: grid;
-    grid-template-areas: 
-    "link productContainer"
-    ".     productDescription";
+    grid-template-areas:
+        "link productContainer"
+        ".     productDescription";
     justify-content: center;
     grid-template-columns: min-content 1fr;
     margin: 24px 0;
@@ -180,10 +180,10 @@
 
 @media screen and (max-width: 720px) {
     .container {
-        grid-template-areas: 
-        "link"
-        "productContainer"
-        "productDescription";
+        grid-template-areas:
+            "link"
+            "productContainer"
+            "productDescription";
         justify-content: center;
         grid-template-columns: 1fr;
         margin: 24px 0;
@@ -212,7 +212,7 @@
 
 @media screen and (max-width: 585px) {
 
-    
+
     .productContainer {
         flex-direction: column;
         max-width: 300px;

@@ -26,21 +26,21 @@ export default function AddToCartButton({ id, totalPrice }) {
     const increment = () => {
         if (quantity > 10) return;
         if (!isLoading) {
-        let counting = quantity + 1;
-        dispatch(updateCartData({ id, count: counting }));
+            let counting = quantity + 1;
+            dispatch(updateCartData({ id, count: counting }));
         }
     };
 
     const decrement = () => {
         if (quantity < 0) return;
         if (!isLoading) {
-        let counting = quantity - 1;
-        if (counting === 0) {
-            dispatch(deleteItem({ id }));
-        } else {
-            dispatch(updateCartData({ id, count: counting }));
+            let counting = quantity - 1;
+            if (counting === 0) {
+                dispatch(deleteItem({ id }));
+            } else {
+                dispatch(updateCartData({ id, count: counting }));
+            }
         }
-    }
     };
 
 
@@ -53,8 +53,9 @@ export default function AddToCartButton({ id, totalPrice }) {
                 "data": data.filter((item) => item.id === id)
             }
             dispatch(setOneItemInCart(currentItemData))
-            dispatch(submitOneItem())
-            dispatch(setCartData(remainingCartItemsData))
+            dispatch(submitOneItem()).then(() => {
+                dispatch(setCartData(remainingCartItemsData))
+            })
         }
     };
 
@@ -65,7 +66,7 @@ export default function AddToCartButton({ id, totalPrice }) {
             ) : (
                 <div className={styles.buttonsContainer}>
                     <CountButtons decrement={decrement} increment={increment} count={quantity} />
-                    <Button buttonName={isSubmitting ? "Загрузка" : "Оформить заказ"} handleClick={handleClick} disabled={!isValid()}/>
+                    <Button buttonName={isSubmitting ? "Загрузка" : "Оформить заказ"} handleClick={handleClick} disabled={!isValid()} />
                 </div>
             )}
         </div>

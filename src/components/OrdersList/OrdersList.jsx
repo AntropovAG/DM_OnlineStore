@@ -17,11 +17,11 @@ export default function OrdersList() {
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
-      dispatch(fetchOnPageLoad()).finally(() => {
-        dispatch(setFirstLoading(true));
-      });
+    dispatch(fetchOnPageLoad()).finally(() => {
+      dispatch(setFirstLoading(true));
+    });
   }, []);
-  
+
   useEffect(() => {
     if (isInView && !isLoading && !allOrdersLoaded) {
       if (firstLoaded === true) {
@@ -39,7 +39,7 @@ export default function OrdersList() {
             {errorMessage ? (
               <p className={styles.text}>{errorMessage}</p>
             ) : (
-              <p className={styles.text}>Сожалеем, но товаров не найдено</p>
+              <p className={styles.text}>Сожалеем, но заказов не найдено</p>
             )}
           </>
         ) : (

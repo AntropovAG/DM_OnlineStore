@@ -56,14 +56,14 @@ export default function CartWindet({ isOpen, setIsOpen }) {
 
   const handleClick = () => {
     if (!isSubmitting) {
-        dispatch(submitCart()).then(() => {
-          if (isOnOrdersPage) {
-            dispatch(fetchOnPageLoad()).finally(() => {
-              dispatch(setFirstLoading(true));
-            });
-          }
-          setIsOpen(false);
-        })
+      dispatch(submitCart()).then(() => {
+        if (isOnOrdersPage) {
+          dispatch(fetchOnPageLoad()).finally(() => {
+            dispatch(setFirstLoading(true));
+          });
+        }
+        setIsOpen(false);
+      })
     }
   }
 
@@ -86,7 +86,7 @@ export default function CartWindet({ isOpen, setIsOpen }) {
         <p className={styles.totalPriceNumber}>{formatPrice(totalPrice)} &#8381;</p>
       </div>
       {errorSpan()}
-      <Button buttonName={isSubmitting? "Загрузка" : "Оформить заказ"} handleClick={handleClick} disabled={!isValid()} />
+      <Button buttonName={isSubmitting ? "Загрузка" : "Оформить заказ"} handleClick={handleClick} disabled={!isValid()} />
     </div>
   )
 }

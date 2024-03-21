@@ -3,10 +3,8 @@ import Cart from "../Cart/Cart";
 import styles from "./header.module.css";
 
 export default function Header() {
-    // let number = JSON.parse(sessionStorage.getItem("cashedData"))?.length;
     const location = useLocation();
 
-    
     return (
         <div className={styles.container}>
             <img

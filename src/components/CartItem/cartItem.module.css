@@ -83,12 +83,13 @@
     .orderItem {
         flex-direction: column;
     }
-    
+
     .orderPriceContainer {
         align-items: center;
     }
+
     .deleteItemButton {
         justify-content: center;
     }
-    
+
 }

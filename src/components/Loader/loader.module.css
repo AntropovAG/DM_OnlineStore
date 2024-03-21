@@ -2,10 +2,11 @@
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
-    
+
 }
 
 .loaderContainer {
@@ -16,6 +17,7 @@
     width: 150px;
 
 }
+
 .loaderImg {
     width: 35px;
     height: 35px;
@@ -23,7 +25,6 @@
     object-position: center;
     animation: rotate 3s infinite ease-in-out;
 }
-
 
 .loaderText {
     color: #0073E6;

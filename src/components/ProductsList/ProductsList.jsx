@@ -61,7 +61,7 @@ export default function ProductsList() {
       if (firstLoaded === true) {
         dispatch(setFirstLoading(false));
       }
-      dispatch(fetchGoods(goodsPage)).finally(() => {});
+      dispatch(fetchGoods(goodsPage)).finally(() => { });
     }
   }, [isInView, isLoading, allGoodsLoaded, dispatch, goodsPage, firstLoaded]);
 

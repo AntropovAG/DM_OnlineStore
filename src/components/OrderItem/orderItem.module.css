@@ -36,7 +36,7 @@
     gap: 8px;
 }
 
-.goodImg{
+.goodImg {
     width: 48px;
     height: 48px;
     border-radius: 4px;
@@ -92,11 +92,11 @@
     .container {
         flex-direction: column;
     }
+
     .goods {
         margin-right: 0;
     }
 }
-
 
 @media screen and (max-width: 585px) {
     .container {
@@ -110,7 +110,7 @@
     .orderDescriptionContainer {
         display: grid;
         max-width: 300px;
-        grid-template-areas: 
+        grid-template-areas:
             "titleContainer infoContainer"
             "button         button";
     }
@@ -118,7 +118,7 @@
     .titleContainer {
         grid-area: titleContainer;
     }
-    
+
     .infoContainer {
         grid-area: infoContainer;
     }

@@ -11,7 +11,7 @@ export const fetchGoods = createAsyncThunk(
                     credentials: "include"
                 }
             );
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error("Ошибка сервера, пожалуйста попробуйте позднее.")
             }
 
@@ -26,7 +26,7 @@ export const fetchGoods = createAsyncThunk(
 
 export const fetchCashedGoods = createAsyncThunk(
     "goods/fetchCashedGoods",
-    async ({limit, page}, { rejectWithValue, dispatch }) => {
+    async ({ limit, page }, { rejectWithValue, dispatch }) => {
         try {
             const response = await fetch(
                 `https://skillfactory-task.detmir.team/products?page=1&limit=${limit}&sort=title%3Aasc`,
@@ -34,7 +34,7 @@ export const fetchCashedGoods = createAsyncThunk(
                     credentials: "include"
                 }
             );
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error("Ошибка сервера, пожалуйста попробуйте позднее.")
             }
 
@@ -49,7 +49,7 @@ export const fetchCashedGoods = createAsyncThunk(
 
 export const fetchGoodByID = createAsyncThunk(
     "goods/fetchGoodByID",
-    async (id, {rejectWithValue}) => {
+    async (id, { rejectWithValue }) => {
         try {
             const response = await fetch(
                 `https://skillfactory-task.detmir.team/products/${id}`,
@@ -57,7 +57,7 @@ export const fetchGoodByID = createAsyncThunk(
                     credentials: "include"
                 }
             );
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error("Товар не найден.")
             }
             const data = await response.json();

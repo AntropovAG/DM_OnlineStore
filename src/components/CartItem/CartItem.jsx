@@ -4,10 +4,10 @@ import { formatPrice } from "../../utils/supportFunctions";
 import { updateCartData, deleteItem } from "../../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function CartItem({item}) {
+export default function CartItem({ item }) {
     const isLoading = useSelector(state => state.cart.isLoading);
-    const {quantity} = item;
-    const {picture, title, price, id} = item.product;
+    const { quantity } = item;
+    const { picture, title, price, id } = item.product;
     const batchPrice = () => {
         return quantity * price;
     }
@@ -16,22 +16,22 @@ export default function CartItem({item}) {
     const increment = () => {
         if (quantity > 10) return;
         if (!isLoading) {
-        let counting = quantity + 1;
-        dispatch(updateCartData({id, count: counting}));
+            let counting = quantity + 1;
+            dispatch(updateCartData({ id, count: counting }));
         }
     };
 
     const decrement = () => {
         if (quantity < 0) return;
         if (!isLoading) {
-        let counting = quantity - 1;
-        dispatch(updateCartData({id, count: counting}));
-    }
+            let counting = quantity - 1;
+            dispatch(updateCartData({ id, count: counting }));
+        }
     };
 
     const deleteItemFromCart = () => {
         if (!isLoading) {
-        dispatch(deleteItem({id}));
+            dispatch(deleteItem({ id }));
         }
     }
 
@@ -66,10 +66,10 @@ export default function CartItem({item}) {
             <img className={styles.orderImg} src={picture} alt="изображение товара" />
             <p className={styles.orderTitle}>{title}</p>
             <div className={styles.buttonsContainer}>
-                    <CountButtons decrement={decrement} increment={increment} count={quantity} />
+                <CountButtons decrement={decrement} increment={increment} count={quantity} />
             </div>
-{renderPriceContainer()}
-{renderDeleteButton()}
+            {renderPriceContainer()}
+            {renderDeleteButton()}
         </div>
     )
 }

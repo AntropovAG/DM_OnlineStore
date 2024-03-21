@@ -4,7 +4,7 @@ import { formatDate, formatPrice } from '../../utils/supportFunctions';
 import { updateFromOrder } from '../../redux/cartSlice';
 import { useDispatch } from 'react-redux';
 
-export default function OrderItem({item, orderNumber}) {
+export default function OrderItem({ item, orderNumber }) {
     const orderDate = formatDate(item[0].createdAt);
     const totalOrderSum = formatPrice(item.reduce((acc, item) => acc + item.product.price * item.quantity, 0));
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function OrderItem({item, orderNumber}) {
     const handleClick = () => {
         let orderData = [];
         item.forEach((item) => {
-            orderData.push({id: item.product.id, quantity: item.quantity});
+            orderData.push({ id: item.product.id, quantity: item.quantity });
         });
         dispatch(updateFromOrder(orderData));
     };

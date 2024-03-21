@@ -11,12 +11,12 @@ export default function Notification() {
     }
 
     return (
-    <div className={styles.overlay}>
-        <div className={styles.container}>
-            <h2 className={styles.title}>{message}</h2>
-            <button className={styles.button} onClick={handleClick}>Понятно</button>
+        <div className={styles.overlay}>
+            <div className={styles.container}>
+                <h2 className={styles.title}>{message}</h2>
+                <button className={styles.button} onClick={handleClick}>Понятно</button>
+            </div>
         </div>
-    </div>
 
     )
 }

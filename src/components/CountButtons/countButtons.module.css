@@ -38,7 +38,7 @@
 .countButton:disabled {
     background-color: #e6f1fc;
     color: #0073e680;
-    cursor: default; 
+    cursor: default;
 }
 
 .countText {

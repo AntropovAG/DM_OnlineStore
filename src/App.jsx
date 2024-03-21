@@ -13,7 +13,7 @@ import { fetchCart } from './redux/cartSlice'
 function App() {
   const dispatch = useDispatch()
   const popupIsOpen = useSelector(state => state.cart.popupIsOpen);
-  
+
   useEffect(() => {
     dispatch(fetchCart())
   }, [dispatch]);
@@ -27,8 +27,8 @@ function App() {
         <Route path='/products/:number' element={<ProductsList />}></Route>
         <Route path='*' element={<NotFound />}></Route>
         <Route path='/' element={<Navigate to="/products/:number" />}></Route>
-    </Routes>
-    {popupIsOpen && <Notification />}
+      </Routes>
+      {popupIsOpen && <Notification />}
     </div>
   )
 }
