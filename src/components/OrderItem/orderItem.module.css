@@ -31,7 +31,7 @@
 .goods {
     display: flex;
     list-style: none;
-    margin: 0;
+    margin: 0 auto 0 0;
     padding: 0;
     gap: 8px;
 }
@@ -75,7 +75,7 @@
 
 @media screen and (max-width: 1300px) {
     .container {
-        flex-direction: column;
+        justify-content: space-between;
         gap: 16px;
     }
 
@@ -87,6 +87,16 @@
         margin-left: 0;
     }
 }
+
+@media screen and (max-width: 800px) {
+    .container {
+        flex-direction: column;
+    }
+    .goods {
+        margin-right: 0;
+    }
+}
+
 
 @media screen and (max-width: 585px) {
     .container {

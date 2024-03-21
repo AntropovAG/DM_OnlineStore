@@ -9,7 +9,7 @@ import { maxAmount } from "../../utils/constants";
 import { useLocation } from "react-router-dom";
 import { fetchOnPageLoad, setFirstLoading } from "../../redux/ordersSlice";
 
-export default function CartWindet({ isOpen }) {
+export default function CartWindet({ isOpen, setIsOpen }) {
   const cartContent = useSelector((state) => state.cart.cartContent.data);
   const totalPrice = cartContent.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
   const isSubmitting = useSelector((state) => state.cart.isSubmitting);
@@ -62,6 +62,7 @@ export default function CartWindet({ isOpen }) {
               dispatch(setFirstLoading(true));
             });
           }
+          setIsOpen(false);
         })
     }
   }
