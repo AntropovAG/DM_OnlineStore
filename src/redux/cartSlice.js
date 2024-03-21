@@ -122,7 +122,6 @@ export const submitOneItem = createAsyncThunk(
     }
 )
 
-
 const cartSclice = createSlice({
     name: "cart",
     initialState: {
@@ -136,6 +135,7 @@ const cartSclice = createSlice({
         isSubmitting: false,
         popupIsOpen: false,
         initialLoad: true,
+        message: "",
     },
     reducers: {
         updateCartData(state, action) {
@@ -185,9 +185,12 @@ const cartSclice = createSlice({
         })
         .addCase(updateCart.pending, (state) => {
             state.isLoading = true;
+            state.message = "";
         })
-        .addCase(updateCart.rejected, (state) => {
+        .addCase(updateCart.rejected, (state, action) => {
             state.isLoading = false;
+            state.message = action.error.message;
+            state.popupIsOpen = true;
         })        
         .addCase(updateCart.fulfilled, (state, action) => {
             state.isLoading = false;
@@ -195,32 +198,43 @@ const cartSclice = createSlice({
         })
         .addCase(setOneItemInCart.pending, (state) => {
             state.isLoading = true;
+            state.message = "";
         })
-        .addCase(setOneItemInCart.rejected, (state) => {
+        .addCase(setOneItemInCart.rejected, (state, action) => {
             state.isLoading = false;
+            state.message = action.error.message;
+            state.popupIsOpen = true;
         })
         .addCase(setOneItemInCart.fulfilled, (state) => {
             state.isLoading = false;
         })
         .addCase(submitCart.pending, (state) => {
             state.isSubmitting = true;
+            state.message = "";
         })
-        .addCase(submitCart.rejected, (state) => {
+        .addCase(submitCart.rejected, (state, action) => {
             state.isSubmitting = false;
+            state.message = action.error.message;
+            state.popupIsOpen = true;
         })
         .addCase(submitCart.fulfilled, (state) => {
             state.isSubmitting = false;
+            state.message = "Заказ создан";
             state.popupIsOpen = true;
             state.cartData.data = [];
         })
         .addCase(submitOneItem.pending, (state) => {
             state.isSubmitting = true;
+            state.message = "";
         })
-        .addCase(submitOneItem.rejected, (state) => {
+        .addCase(submitOneItem.rejected, (state, action) => {
             state.isSubmitting = false;
+            state.message = action.error.message;
+            state.popupIsOpen = true;
         })
         .addCase(submitOneItem.fulfilled, (state) => {
             state.isSubmitting = false;
+            state.message = "Заказ создан";
             state.popupIsOpen = true;
         })
     }

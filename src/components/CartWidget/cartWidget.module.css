@@ -15,7 +15,13 @@
     visibility: collapse;
     transition: all 0.3s ease-in-out;
     overflow: scroll;
-    max-height: 100vh;
+    max-height: calc(100vh - 50px);
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
 }
 
 .visible {
@@ -36,7 +42,7 @@
     line-height: 24px;
 }
 .emptyCartText {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 24px;
     text-align: center;
@@ -64,5 +70,11 @@
         width: 300px;
         right: 5px;
         top: 130px;
+        max-height: calc(100vh - 130px);
+    }
+
+    .errorMessage {
+        min-height: 48px;
+        font-size: 14px;
     }
 }

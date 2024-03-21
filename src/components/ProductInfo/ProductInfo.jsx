@@ -10,6 +10,8 @@ import NotFound from "../NotFound/NotFound";
 import AddToCartButton from "../AddToCartButton/AddToCartButton";
 import { formatPrice } from "../../utils/supportFunctions";
 import { maxAmount } from "../../utils/constants";
+import ProgressiveImage from "react-progressive-graceful-image";
+import placeholder from '/images/image_loader_icon.gif'
 
 export default function ProductInfo() {
   const { id } = useParams();
@@ -22,7 +24,7 @@ export default function ProductInfo() {
   const quantity = isInCart ? data.find((item) => item.id === id).quantity : 0;
   const batchPrice = () => {
     return quantity * price;
-}
+  }
   const isLoading = useSelector((state) => state.goods.isLoading);
   const error = useSelector((state) => state.goods.errorMessage);
   const dispatch = useDispatch();
@@ -43,18 +45,18 @@ export default function ProductInfo() {
 
   const renderPriceContainer = () => {
     return (
-        <div className={styles.orderPriceContainer}>
-            {quantity > 1 ? (
-                <>
-                    <p className={styles.orderUnitPrice}>{formatPrice(price)} &#8381; за шт.</p>
-                    <p className={styles.orderBatchPrice}>{formatPrice(batchPrice())} &#8381;</p>
-                </>
-            ) : (
-                <p className={styles.orderBatchPrice}>{formatPrice(price)} &#8381;</p>
-            )}
-        </div>
+      <div className={styles.orderPriceContainer}>
+        {quantity > 1 ? (
+          <>
+            <p className={styles.orderUnitPrice}>{formatPrice(price)} &#8381; за шт.</p>
+            <p className={styles.orderBatchPrice}>{formatPrice(batchPrice())} &#8381;</p>
+          </>
+        ) : (
+          <p className={styles.orderBatchPrice}>{formatPrice(price)} &#8381;</p>
+        )}
+      </div>
     );
-};
+  };
 
   return (
     <>
@@ -72,7 +74,9 @@ export default function ProductInfo() {
             Назад
           </Link>
           <div className={styles.productContainer}>
-            <img className={styles.img} src={picture} alt="Фото продукта" />
+            <ProgressiveImage src={picture} placeholder={placeholder}>
+              {(src) => <img loading='lazy' className={styles.img} src={src} alt="Фото продукта" />}
+            </ProgressiveImage>
             <div className={styles.productInfo}>
               <div>
                 <h2 className={styles.title}>{title}</h2>
@@ -80,7 +84,7 @@ export default function ProductInfo() {
               </div>
               <div>
                 {renderPriceContainer()}
-                <AddToCartButton id={id} totalPrice={batchPrice()}/>
+                <AddToCartButton id={id} totalPrice={batchPrice()} />
                 {errorSpan()}
               </div>
               <div>
