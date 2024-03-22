@@ -100,6 +100,7 @@ export default function ProductsList() {
           setIsInView(inView);
         }}
         threshold={0}
+        rootMargin="50px 0px"
       ></InView>
     </>
   );

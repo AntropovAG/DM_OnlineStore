@@ -53,7 +53,8 @@ export default function OrdersList() {
         onChange={(inView) => {
           setIsInView(inView);
         }}
-        threshold={1}
+        threshold={0}
+        rootMargin="50px 0px"
       ></InView>
     </>
 
