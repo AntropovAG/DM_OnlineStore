@@ -48,6 +48,7 @@ export default function OrdersList() {
       </div>
 
       {isLoading && <Loader />}
+      
       <InView
         as="div"
         onChange={(inView) => {

@@ -14,7 +14,6 @@ export const fetchGoods = createAsyncThunk(
             if (!response.ok) {
                 throw new Error("Ошибка сервера, пожалуйста попробуйте позднее.")
             }
-
             const data = await response.json();
             dispatch(addPage());
             return data;
@@ -37,7 +36,6 @@ export const fetchCashedGoods = createAsyncThunk(
             if (!response.ok) {
                 throw new Error("Ошибка сервера, пожалуйста попробуйте позднее.")
             }
-
             const data = await response.json();
             dispatch(setPage(page));
             return data;

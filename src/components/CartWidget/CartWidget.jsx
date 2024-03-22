@@ -73,14 +73,12 @@ export default function CartWindet({ isOpen, setIsOpen }) {
     }
   }, [cartData, dispatch, initialLoad]);
 
-
   return (
     <div className={`${styles.container} ${isOpen ? styles.visible : ""}`}>
       {cartContent.length === 0 ? (
         <p className={styles.emptyCartText}>Корзина пуста</p>
       ) : (cartContent.map(item => <CartItem key={item.product.id} item={item} />
       ))}
-
       <div className={styles.totalPriceContainer}>
         <p className={styles.totalPriceText}>Итого:</p>
         <p className={styles.totalPriceNumber}>{formatPrice(totalPrice)} &#8381;</p>

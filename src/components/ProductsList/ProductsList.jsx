@@ -94,6 +94,7 @@ export default function ProductsList() {
       </div>
 
       {isLoading && <Loader />}
+      
       <InView
         as="div"
         onChange={(inView) => {

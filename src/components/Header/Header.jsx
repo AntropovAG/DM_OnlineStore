@@ -32,7 +32,6 @@ export default function Header() {
             <div className={styles.cartContainer}>
                 <Cart />
             </div>
-
         </div>
     );
 }

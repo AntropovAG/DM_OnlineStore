@@ -23,7 +23,6 @@ export const fetchOnPageLoad = createAsyncThunk(
     }
 );
 
-
 export const fetchOrders = createAsyncThunk(
     "orders/fetchOrders",
     async (page, { rejectWithValue, dispatch }) => {
@@ -37,7 +36,6 @@ export const fetchOrders = createAsyncThunk(
             if (!response.ok) {
                 throw new Error("Ошибка сервера, пожалуйста попробуйте позднее.")
             }
-
             const data = await response.json();
             dispatch(addPage());
             return data;
@@ -45,7 +43,6 @@ export const fetchOrders = createAsyncThunk(
             return rejectWithValue(error.message);
         }
     }
-
 );
 
 const ordersSlice = createSlice({

@@ -7,7 +7,7 @@ export default function Cart() {
     const [isOpen, setIsOpen] = useState(false)
     const cartQuantity = useSelector((state) => state.cart.cartContent.data.length);
 
-    //Если нужно посчитать количество товаров в корзине, а не количество позиций, то можно использовать следующий код:
+    //Если нужно отобразить количество всех товаров в корзине, а не только количество видов товаров, то можно использовать следующий код:
     // const cartQuantity = useSelector((state) => state.cart.cartContent.data.reduce((acc, item) => acc + item.quantity, 0));
 
     const toggleIsOpen = () => {

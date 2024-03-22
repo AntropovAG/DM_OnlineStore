@@ -9,7 +9,6 @@ export default function OrderItem({ item, orderNumber }) {
     const totalOrderSum = formatPrice(item.reduce((acc, item) => acc + item.product.price * item.quantity, 0));
     const dispatch = useDispatch();
 
-
     const handleClick = () => {
         let orderData = [];
         item.forEach((item) => {
@@ -24,7 +23,6 @@ export default function OrderItem({ item, orderNumber }) {
                 <h2 className={styles.title}>Заказ</h2>
                 <p className={styles.orderNumber}>№{orderNumber}</p>
             </div>
-
             <ul className={styles.goods}>
                 {item.map((data, index) => {
                     return (
@@ -34,7 +32,6 @@ export default function OrderItem({ item, orderNumber }) {
                     )
                 })}
             </ul>
-
             <div className={styles.orderDescriptionContainer}>
                 <div className={styles.titleContainer}>
                     <p className={styles.title}>Оформлено</p>

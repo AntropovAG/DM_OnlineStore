@@ -49,8 +49,6 @@ export const updateCart = createAsyncThunk(
     }
 );
 
-// Сделана отдельная функция для оформления одного товара на случай, если логика запростов на сервер будет отличаться в будущем (например, сабмит по id) 
-
 export const setOneItemInCart = createAsyncThunk(
     "cart/setOneItemInCart",
     async (cartData, { rejectWithValue }) => {
@@ -102,6 +100,8 @@ export const submitCart = createAsyncThunk(
         }
     }
 )
+
+// Сделана отдельная функция для оформления одного товара на случай, если логика запростов на сервер будет отличаться в будущем (например, сабмит по id). Методы отличаются только экстра редьюсером при успешном выполнении.
 
 export const submitOneItem = createAsyncThunk(
     "cart/submitOneItem",
