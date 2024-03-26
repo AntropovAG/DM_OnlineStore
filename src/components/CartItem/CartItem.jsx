@@ -3,14 +3,15 @@ import CountButtons from "../CountButtons/CountButtons";
 import { formatPrice } from "../../utils/supportFunctions";
 import { updateCartData, deleteItem } from "../../redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from "react";
 
 export default function CartItem({ item }) {
     const isLoading = useSelector(state => state.cart.isLoading);
     const { quantity } = item;
     const { picture, title, price, id } = item.product;
-    const batchPrice = () => {
+    const batchPrice = useMemo(() => {
         return quantity * price;
-    }
+    }, [quantity, price])
     const dispatch = useDispatch();
 
     const increment = () => {
@@ -52,7 +53,7 @@ export default function CartItem({ item }) {
                 {quantity > 1 ? (
                     <>
                         <p className={styles.orderUnitPrice}>{formatPrice(price)} &#8381; за шт.</p>
-                        <p className={styles.orderBatchPrice}>{formatPrice(batchPrice())} &#8381;</p>
+                        <p className={styles.orderBatchPrice}>{formatPrice(batchPrice)} &#8381;</p>
                     </>
                 ) : (
                     <p className={styles.orderBatchPrice}>{formatPrice(price)} &#8381;</p>
