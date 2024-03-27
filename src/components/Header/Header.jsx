@@ -6,7 +6,7 @@ export default function Header() {
     const location = useLocation();
 
     return (
-        <div className={styles.container}>
+        <header className={styles.container}>
             <img
                 className={styles.logo}
                 src="/images/DM_header_logo.png"
@@ -32,6 +32,6 @@ export default function Header() {
             <div className={styles.cartContainer}>
                 <Cart />
             </div>
-        </div>
+        </header>
     );
 }
