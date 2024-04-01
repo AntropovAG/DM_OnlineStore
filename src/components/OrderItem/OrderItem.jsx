@@ -4,12 +4,14 @@ import { formatDate, formatPrice } from '../../utils/supportFunctions';
 import { updateFromOrder } from '../../redux/cartSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function OrderItem({ item, orderNumber }) {
     const orderDate = formatDate(item[0].createdAt);
     const totalOrderSum = formatPrice(item.reduce((acc, item) => acc + item.product.price * item.quantity, 0));
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
 
     const handleClick = () => {
         let orderData = [];
@@ -24,8 +26,12 @@ export default function OrderItem({ item, orderNumber }) {
         navigate(`/product/${id}`);
     };
 
+    const toggleAdditionalInfo = () => {
+        setShowAdditionalInfo(!showAdditionalInfo);
+    };
+
     return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={toggleAdditionalInfo}>
             <div className={styles.orderNumberContainer}>
                 <h2 className={styles.title}>Заказ</h2>
                 <p className={styles.orderNumber}>№{orderNumber}</p>
@@ -35,6 +41,12 @@ export default function OrderItem({ item, orderNumber }) {
                     return (
                         <li key={index}>
                             <button className={styles.button} onClick={() => onButtonClick(data)}><img className={styles.goodImg} src={data.product.picture} alt="изображение товара" /></button>
+                            {showAdditionalInfo && (
+                                <div className={styles.additionalInfo}>
+                                    <p>x {data.quantity}</p>
+                                    <p>{formatPrice(data.product.price)} &#8381;</p>
+                                </div>
+                            )}
                         </li>
                     )
                 })}
@@ -50,7 +62,7 @@ export default function OrderItem({ item, orderNumber }) {
                 </div>
                 <Button buttonName="Повторить" handleClick={handleClick} />
             </div>
-
         </div>
+        
     )
 }
