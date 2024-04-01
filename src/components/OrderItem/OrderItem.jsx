@@ -3,11 +3,13 @@ import Button from '../Button/Button';
 import { formatDate, formatPrice } from '../../utils/supportFunctions';
 import { updateFromOrder } from '../../redux/cartSlice';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function OrderItem({ item, orderNumber }) {
     const orderDate = formatDate(item[0].createdAt);
     const totalOrderSum = formatPrice(item.reduce((acc, item) => acc + item.product.price * item.quantity, 0));
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleClick = () => {
         let orderData = [];
@@ -15,6 +17,11 @@ export default function OrderItem({ item, orderNumber }) {
             orderData.push({ id: item.product.id, quantity: item.quantity });
         });
         dispatch(updateFromOrder(orderData));
+    };
+
+    const onButtonClick = (data) => {
+        const id = data.product.id;
+        navigate(`/product/${id}`);
     };
 
     return (
@@ -27,7 +34,7 @@ export default function OrderItem({ item, orderNumber }) {
                 {item.map((data, index) => {
                     return (
                         <li key={index}>
-                            <img className={styles.goodImg} src={data.product.picture} alt="изображение товара" />
+                            <button className={styles.button} onClick={() => onButtonClick(data)}><img className={styles.goodImg} src={data.product.picture} alt="изображение товара" /></button>
                         </li>
                     )
                 })}
